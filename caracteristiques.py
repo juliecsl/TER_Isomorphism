@@ -8,9 +8,16 @@ def ReadGraph(filename):
         ligne = filin.readline()
         while ligne != "":
             print(ligne)
-            graphe = re.split(r"\d\[", ligne)
+            liste = re.findall(r"\[[\d|\s]+\]", ligne)
+            graph = list()
+            for noeud in liste :
+                noeud = noeud.replace("[", "")
+                noeud = noeud.replace("]", "")
+                noeud = noeud.split(" ")
+                graph.append(noeud)
             ligne = filin.readline()
-        
-        print(graphe)
+        print(graph)
+        graph = [[int(i) for i in sous_graph] for sous_graph in graph]
+        print(graph)
 
 ReadGraph(filename)
