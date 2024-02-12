@@ -2,6 +2,7 @@ import re
 
 filename = "graph1.txt"
 
+
 def ReadGraph(filename):
 
     with open(filename, "r") as filin:
@@ -16,8 +17,13 @@ def ReadGraph(filename):
                 noeud = noeud.split(" ")
                 graph.append(noeud)
             ligne = filin.readline()
-        print(graph)
+        
         graph = [[int(i) for i in sous_graph] for sous_graph in graph]
-        print(graph)
+        return graph
 
-ReadGraph(filename)
+graphe = ReadGraph(filename)
+
+# comment faire pour l'orientation ? Dans notre fichier, elle est mauvaise 
+
+def Degreesnoeuds(num):
+    return len(graphe[num-1])
