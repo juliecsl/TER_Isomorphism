@@ -92,3 +92,33 @@ def LeftFaceCardinality(edge):
     return count
 
 print(LeftFaceCardinality((1,2)))
+
+def Lambda(edge):
+    """
+    
+    Fonction qui renvoie un tuple unique de la forme (face gauche, face droite, degré tail, degré head)
+    
+    Entrée: Arc sous forme de tuple (queue, tete)
+    Sortie : tuple (face gauche, face droite, degré tail, degré head) 
+    
+    """
+
+    lambda_res = (LeftFaceCardinality(edge), RightFaceCardinality(edge), VertexDegrees(edge[0]), VertexDegrees(edge[1]))
+    
+    return lambda_res
+
+
+def SameLambda(edge1, edge2):
+    """
+    
+    Fonction qui renvoie True si les arêtes sont indiscernables et False sinon
+    
+    Entrée : Deux arcs edge1 et edge2 sous la forme de tuple (queue, tete)
+    Sortie : True su les arêtes sont indiscernables, False sinon
+    
+    """
+
+    return True if Lambda(edge1) == Lambda(edge2) else False
+
+print(SameLambda((2,3), (4,5)))
+print(SameLambda((1,2), (4,5)))
