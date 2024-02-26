@@ -7,6 +7,15 @@ graph = ReadGraph(filename)
 
 def FirstPartitioning(graph):
     """
+    Fonction qui permet de faire le premier partionnement des aretes. 
+    Des aretes ayant le meme lambda (meme nombre de degré entrant/sortant et longueur de face droite/gauche)
+    seront mises dans le meme bloc.
+
+    Entrée: Liste représentant les caractéristiques du graphe.
+            De la forme: [[n2, n3, n4, n5], [n1, n5, n4, n3], [n1, n2, n4], ....]
+    Sortie: Dictionnaire représentant les caractéristiques du bloc suivant des aretes ayant ces propriétés.
+            De la forme: {(|face gauche|, |face droite|, degré tail, degré head): [(n1, n2), (n1, n3), (n2, n4)], ...} 
+            (avec ni des numéros de noeuds)
     """
 
     list_edges = []
@@ -29,6 +38,4 @@ def FirstPartitioning(graph):
 
     return dico_lambda
 
-print(FirstPartitioning(graph))
-
-
+# print(FirstPartitioning(graph))
