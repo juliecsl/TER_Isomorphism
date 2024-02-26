@@ -65,6 +65,20 @@ def f(e: tuple, D: str) -> tuple:
     return e
 
 
+def find_block(dico: dict, e: tuple) -> tuple:
+    """
+    Fonction qui retrouve dans quel bloc (clé du dictionnaire) se trouve une arete e.
+
+    Entrée: dico représentant le partionnement en blocs (dict)
+            e une arete de la forme (tail, head) (tuple)
+    Sortie: la clé du bloc où se trouve e (tuple)
+    """
+
+    # Parcours du dictionnaire
+    for cle, valeurs in dico.items():
+        if e in valeurs:
+            return(cle)
+
 
 def main(graph: list):
     """
@@ -103,7 +117,15 @@ def main(graph: list):
         # STATEMENT I
         # Pour chaque arete de MOVE
         for e in MOVE:
-            pass
+            j = find_block(blocks, e)  # La clé du bloc de e
+            Bj = set(blocks[j])  # set contenant tous les élements du bloc j
+
+            # STATEMENT J
+            inter = Bj.intersection(MOVE)
+
+            if inter != Bj:
+                pass
 
 main(graph)
 # print(graph)
+
