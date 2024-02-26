@@ -40,13 +40,46 @@ def FirstPartitioning(graph):
 
 # print(FirstPartitioning(graph))
 
+def f(e, D):
+    """
+    Fonction qui permet de trouver l'arc directement à droite ou à gauche de l'arc e.
+
+    Entrée: e un tuple représentant un arc de la forme (tail, head)
+            D un string prenant la valeur R ou L. 
+                L pour trouver l'arc directement à gauche (Left)
+                R pour trouver l'arc directement à droite (Right)
+    Sortie: tuple de la forme (tail, head)
+    """
+    tail = e[0]  # n° de la queue de l'arc e
+    head = e[1]  # n° de la tete l'arc e
+
+    if D == 'L':
+        i = graph[head-1].index(tail) # on met dans une variable la place de l'arête (head, tail)
+        new_head = graph[head-1][(i-1)%len(graph[head-1])] # la nouvelle valeur du sommet qui est la tête est à gauche (-)
+    elif D == 'R':
+        i = graph[head-1].index(tail) # on met dans une variable la place de l'arête (head, tail)
+        new_head = graph[head-1][(i+1)%len(graph[head-1])]
+    
+    e = (head, new_head)
+
+    return e
+
+
 
 def main(graph):
+    """
+    Fonction principale de l'algorithme à appeler pour faire fonctionner le programme.
+
+    Entrée:
+    Sortie:
+    """
+
+    blocks = FirstPartitioning(graph) # Dictionnaire représentant les blocs de partionnement
 
     # PARTIE A
     PROCESS = set()
-    # Pour i de 0 à (nb de blocs)
-    for i in range(len(FirstPartitioning(graph))):
+    # Pour chaque lambda (clé) du dictionnaire
+    for i in blocks:
         PROCESS.add((i, 'R'))
         PROCESS.add((i, 'L'))
     
@@ -54,11 +87,18 @@ def main(graph):
     while PROCESS:
         # PARTIE C
         elem = PROCESS.pop() # Récupère un élément de PROCESS et le supprime
-        i = elem[0]  # Numéro de bloc selectionné
+        i = elem[0]  # Lambda du bloc selectionné
         D = elem[1]  # Direction L ou R
 
         # PARTIE G
         MOVE = set()
 
+        # PARTIE H
+        # Pour chaque arete e du bloc i
+        for e in blocks[i]:
+            # e est sous la forme d'un tuple (e1, e2)
+            pass
 
-main(graph)
+# main(graph)
+print(graph)
+print(f((5, 4), 'L'))
