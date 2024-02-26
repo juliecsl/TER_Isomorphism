@@ -39,3 +39,26 @@ def FirstPartitioning(graph):
     return dico_lambda
 
 # print(FirstPartitioning(graph))
+
+
+def main(graph):
+
+    # PARTIE A
+    PROCESS = set()
+    # Pour i de 0 à (nb de blocs)
+    for i in range(len(FirstPartitioning(graph))):
+        PROCESS.add((i, 'R'))
+        PROCESS.add((i, 'L'))
+    
+    # Tant que PROCESS est non vide
+    while PROCESS:
+        # PARTIE C
+        elem = PROCESS.pop() # Récupère un élément de PROCESS et le supprime
+        i = elem[0]  # Numéro de bloc selectionné
+        D = elem[1]  # Direction L ou R
+
+        # PARTIE G
+        MOVE = set()
+
+
+main(graph)
