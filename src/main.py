@@ -5,7 +5,7 @@ filename = "FichierTests/graph2.txt"
 
 graph = ReadGraph(filename) 
 
-def FirstPartitioning(graph):
+def FirstPartitioning(graph: list) -> dict:
     """
     Fonction qui permet de faire le premier partionnement des aretes. 
     Des aretes ayant le meme lambda (meme nombre de degré entrant/sortant et longueur de face droite/gauche)
@@ -40,7 +40,7 @@ def FirstPartitioning(graph):
 
 # print(FirstPartitioning(graph))
 
-def f(e, D):
+def f(e: tuple, D: str) -> tuple:
     """
     Fonction qui permet de trouver l'arc directement à droite ou à gauche de l'arc e.
 
@@ -66,7 +66,7 @@ def f(e, D):
 
 
 
-def main(graph):
+def main(graph: list):
     """
     Fonction principale de l'algorithme à appeler pour faire fonctionner le programme.
 
@@ -76,7 +76,7 @@ def main(graph):
 
     blocks = FirstPartitioning(graph) # Dictionnaire représentant les blocs de partionnement
 
-    # PARTIE A
+    # STATEMENT A
     PROCESS = set()
     # Pour chaque lambda (clé) du dictionnaire
     for i in blocks:
@@ -85,20 +85,25 @@ def main(graph):
     
     # Tant que PROCESS est non vide
     while PROCESS:
-        # PARTIE C
+        # STATEMENT C
         elem = PROCESS.pop() # Récupère un élément de PROCESS et le supprime
         i = elem[0]  # Lambda du bloc selectionné
         D = elem[1]  # Direction L ou R
 
-        # PARTIE G
+        # STATEMENT G
         MOVE = set()
 
-        # PARTIE H
+        # STATEMENT H
         # Pour chaque arete e du bloc i
+        # On ajoute son arc directement à D (droite ou gauche) de lui dans MOVE
         for e in blocks[i]:
             # e est sous la forme d'un tuple (e1, e2)
+            MOVE.add(f(e, D))
+
+        # STATEMENT I
+        # Pour chaque arete de MOVE
+        for e in MOVE:
             pass
 
-# main(graph)
-print(graph)
-print(f((5, 4), 'L'))
+main(graph)
+# print(graph)
