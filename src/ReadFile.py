@@ -2,7 +2,7 @@ import re
 
 def ReadGraph(filename):
     """ 
-    Fonction qui permet de mettre un graphe issu d'un fichier texte généré via le programme Plantri
+    Fonction qui permet de mettre un graphe issu d'un fichier texte généré via le programme Plantri version web
     dans une liste où chaque élément de la liste correspond aux arêtes du noeuds dont c'est l'indice. 
 
     Entrée: Fichier texte (.txt) incluant la représentation Plantri d'un graphe
