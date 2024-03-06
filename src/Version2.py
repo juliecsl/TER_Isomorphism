@@ -6,7 +6,7 @@
 
 from ReadFile import *
 
-filename = "FichierTests/graph2.txt"
+filename = "FichierTests/graph1.txt"
 graph = ReadGraph(filename)
 
 # Calcul de signature d'un graphe : on fait un parcours de graphe en profondeur pour passer par toutes les arêtes, 
@@ -28,7 +28,7 @@ def Signature(graphe):
         # parcours en profondeur
         parcours(graphe, edge, [])
 
-        print(signature)
+        #print(signature)
 
 
 def parcours(graphe, edge, visited):
@@ -39,7 +39,7 @@ def parcours(graphe, edge, visited):
     sortie : rien
     """
     visited.append(edge)
-    print(edge)
+    #print(edge)
 
     for neighbor in graphe[edge[1]-1]:
         if (edge[1],neighbor) not in visited :
