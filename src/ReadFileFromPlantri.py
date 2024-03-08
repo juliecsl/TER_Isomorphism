@@ -32,4 +32,4 @@ def ReadGraph2(filename):
 
         return graph
     
-print(ReadGraph2(filename))
+#print(ReadGraph2(filename))
