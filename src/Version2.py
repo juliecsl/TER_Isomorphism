@@ -4,7 +4,31 @@
 # - calcul de signature pour le graphe 2
 # - comparaison des deux signatures : s'il y a égalité, on a des graphes isomorphes
 
+
+class Graph(object):
+
+    def __init__(self, graph) :
+        self.graph = graph
+
+    def ParcoursProfondeurUtils(self, edge, visited):
+        visited.add(edge)
+        if edge in self.graph:
+            for neighbor in self.graph[v]:
+                if (edge, neighbor) not in visited:
+                    print(f"Traversing edge: ({edge} -> {neighbor})")
+                    self.ParcoursProfondeurUtils(neighbor, visited)
+
+    def ParcoursProfondeurEdge(self, start_vertex):
+        visited = set()
+        self.ParcoursProfondeurUtils(start_vertex, visited)
+    
+
+
+
+
+
 from ReadFile import *
+from ReadFileFromPlantri import *
 
 filename = "FichierTests/graph1.txt"
 graph = ReadGraph(filename)
