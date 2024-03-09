@@ -87,22 +87,64 @@ class Graph(object):
             res.append(edge[1])
         
         return res
+    
+
+    def Traduction(self, parcours):
+        """
+        """
+
+        dico = dict()
+        res = list()
+        k = 1
+
+        for vertex in parcours:
+            if vertex not in dico.keys():
+                dico[vertex] = k
+                k += 1
+            res.append(dico[vertex])
+        
+        return res
+    
 
     def Signature(self):
         """
         """
+        
+        signatures = list()
 
         edges = self.Edges()
         for edge in edges :
             parcours = self.ParcoursProfondeurEdge(edge)
-            print(parcours)
+            signatures.append(self.Traduction(parcours))
+            
+        return min(signatures)
         
 
+def Test_isomorphisme(graph1, graph2):
+    """
+    """
 
-filename = "FichierTests/graph2bis.txt"
-graph = ReadGraph(filename)
-print(graph)
+    if graph1.Signature() == graph2.Signature():
+        print("les graphes sont isomorphes")
+    else :
+        print("les graphes ne sont pas isomorphes")
 
-graph = Graph(graph)
-#print(graph.Signature())
-graph.Draw()
+
+# Test graphes isomorphes
+filename1 = "FichierTests/graph2bis.txt"
+filename2 = "FichierTests/graph2.txt"
+
+graph1 = Graph(ReadGraph(filename1))
+graph2 = Graph(ReadGraph(filename2))
+
+Test_isomorphisme(graph1, graph2)
+
+# Test graphes non isomorphes
+
+filename3 = "FichierTests/graph4.txt"
+filename4 = "FichierTests/graph5.txt"
+
+graph3 = Graph(ReadGraph(filename3))
+graph4 = Graph(ReadGraph(filename4))
+
+Test_isomorphisme(graph3, graph4)

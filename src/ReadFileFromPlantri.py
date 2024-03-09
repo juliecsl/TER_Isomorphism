@@ -1,7 +1,7 @@
 # on ne peut générer des fichiers de la version programme plantri que sur des machines UNIX
 # ./plantri 5 -a test.txt (un graphe planaire à 5 sommets)
 
-filename = "FichierTests/graph6.txt"
+filename = "FichierTests/graph4.txt"
 
 def ReadGraph2(filename):
     """ 
@@ -32,4 +32,4 @@ def ReadGraph2(filename):
 
         return graph
     
-#print(ReadGraph2(filename))
+print(ReadGraph2(filename))
