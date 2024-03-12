@@ -30,6 +30,7 @@ class Graph(object):
         
         return res
     
+    
     def Draw(self):
         """
         fonction qui permet d'afficher le graphe sous forme planaire dans une fenêtre
