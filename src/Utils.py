@@ -17,11 +17,13 @@ def ReadGraphFromWeb(filename):
     """
 
     with open(filename, "r") as filin:
-        line = filin.readline() # Lecture de la 1ère ligne du fichier
+        # Lecture de la 1ère ligne du fichier
+        line = filin.readline() 
         # Avec une expression régulière on met dans une liste tous les éléments qui sont entre crochets []
         liste = re.findall(r"\[[\d|\s]+\]", line)
         graph = list()
 
+        # pour chaque noeud
         for vertex in liste :
             vertex = vertex.replace("[", "")
             vertex = vertex.replace("]", "")
@@ -33,10 +35,9 @@ def ReadGraphFromWeb(filename):
         
         return graph
     
+
 # on ne peut générer des fichiers de la version programme plantri que sur des machines UNIX
 # ./plantri 5 -a test.txt (un graphe planaire à 5 sommets)
-
-filename = "FichierTests/graph4.txt"
 
 def ReadGraphFromPlantri(filename):
     """ 
@@ -52,41 +53,48 @@ def ReadGraphFromPlantri(filename):
     """
 
     with open(filename, "r") as filin:
-        line = filin.readline() # lecture de la 1ère ligne du fichier
-
-        liste = line.split(" ") # on sépare la ligne entre le nombre de noeuds et le reste
-        nbr_vertex = liste[0] # nombre de noeuds du graphe
-        liste = liste[1].split(",") # chaque élément de la liste correspond aux noeuds voisins du noeud indice
-
+        # lecture de la 1ère ligne du fichier
+        line = filin.readline() 
+        # on sépare la ligne entre le nombre de noeuds et le reste
+        liste = line.split(" ")
+        # on sépare chaque noeud (avec ses voisins) de ses voisins
+        liste = liste[1].split(",") 
         graph = list()
 
+        # pour chaque noeud
         for vertex in liste :
-            vertex = [ord(vertex[i]) - 96 for i in range(len(vertex))] # la fonction ord permet de passer d'un caractère ascii à un entier
-            graph.append(vertex) # indice de la liste correspond au noeud 
-
+            # la fonction ord permet de passer d'un caractère ascii à un entier (-96 car on veut des noms de noeuds qui commencent à 1)
+            vertex = [ord(vertex[i]) - 96 for i in range(len(vertex))]
+            # indice de la liste correspond au nom du noeud 
+            graph.append(vertex) 
 
         return graph
     
 
-    def Draw(self):
-        """
-        fonction qui permet d'afficher le graphe sous forme planaire dans une fenêtre
+def Draw(graphe):
+    """
+    Fonction qui permet d'afficher le graphe sous forme planaire dans une nouvelle fenêtre.
 
-        entrée : le graphe
-        sortie : -
-        """
+    Entrée : graphe sous forme de liste
+    Sortie : -
+    """
 
-        g = nx.Graph()
-        edges = self.Edges()
-        g.add_edges_from(edges)
+    g = nx.Graph()
+    # génération de toutes les arêtes du graphe
+    edges = []
+    for vertex in range(len(graphe)):
+        for neighbor in graphe[vertex]:
+            edges.append((vertex+1, neighbor))
+    # on ajoute les arêtes au dessin
+    g.add_edges_from(edges)
         
-        # on veut quelque chose de planaire (on a une erreur si impossible)
-        try:
-            pos = nx.planar_layout(g)
-        except ValueError as err:
-            print(err.args)
+    # on veut quelque chose de planaire (on a une erreur si impossible)
+    try:
+        pos = nx.planar_layout(g)
+    except ValueError as err:
+        print(err.args)
             
-        # dessiner le graph en affichant les labels des noeuds
-        nx.draw(g, pos=pos, with_labels=True)
-        # afficher
-        plt.show()
+    # dessiner le graph en affichant les labels des noeuds
+    nx.draw(g, pos=pos, with_labels=True)
+    # afficher
+    plt.show()

@@ -1,13 +1,14 @@
 from Utils import *
 
-# Méthode de test d'isomorphisme entre deux graphes de manière "naive"
+# Méthode de test d'isomorphismes entre deux graphes de manière "naive"
 # L'algorithme est le suivant : 
-# - calcul de signature pour le graphe 1
-# - calcul de signature pour le graphe 2
-# - comparaison des deux signatures : s'il y a égalité, on a des graphes isomorphes
+# - calcul de la signature pour le graphe 1
+# - calcul de la signature pour le graphe 2
+# - comparaison des deux signatures : s'il y a égalité, on a des graphes qui sont isomorphes
 
 
 class Graph(object):
+    """ Cette classe va nous fournir des caractéristiques des graphes """
 
     def __init__(self, graph) :
         self.graph = graph
@@ -15,21 +16,29 @@ class Graph(object):
 
     def Edges(self):
         """
-        fonction qui retourne toutes les arêtes du graphe (on considère qu'il est non orienté)
+        Fonction qui retourne toutes les arêtes du graphe (on considère qu'il est non orienté) dans une liste.
 
-        entrée : le graphe sous forme d'une liste
+        Entrée : le graphe sous forme de liste
         sortie : liste des arêtes
         """
         res = []
+        # pour tous les noeuds
         for vertex in range(len(self.graph)):
+            # pour tous les voisins du noeud
             for neighbor in self.graph[vertex]:
+                # on ajoute l'arête (noeud, voisin) à la liste
                 res.append((vertex+1, neighbor))
         
         return res
     
 
-    def ParcoursProfondeurUtils(self, edge, visited):
+    def ParcoursProfondeurRecursif(self, edge, visited):
         """
+        Fonction récursive qui permet de parcourir en profondeur les arêtes non encore vues d'un graphe. A chaque appel, on met à jour
+        l'ensemble des arêtes déjà traitées
+
+        Entrée : le graphe sous forme de liste, l'arête que l'on traite, l'ensemble des arêtes déjà traitées dans l'ordre
+        Sortie : rien - on met à jour la liste des arêtes visitées 
         """
         
         #on liste toutes les arêtes du graphe
@@ -37,27 +46,34 @@ class Graph(object):
         #on ajoute l'arête à la liste des arêtes visitées
         visited.append(edge)
 
+        # si l'arête est dans le graphe (vérification)
         if edge in edges:
-            # pour chaque voisin de la tête, edge[1], de notre arête faire :
+            # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
             for neighbor in self.graph[edge[1]-1]:
                 if (edge[1], neighbor) not in visited:
-                    self.ParcoursProfondeurUtils((edge[1], neighbor), visited)
+                    self.ParcoursProfondeurRecursif((edge[1], neighbor), visited)
 
 
-    def ParcoursProfondeurEdge(self, edge_debut):
+    def Parcours(self, edge_debut):
         """
-        Fonction qui permet de parcourir le graphe en profondeur sur les arêtes 
+        Fonction qui permet de parcourir le graphe en profondeur sur les arêtes depuis une arête donnée
 
-        entrée : le graphe
-        sortie : une liste avec tous les sommets dans l'ordre dans lesquelles on les passe
+        Entrée : le graphe sous forme de liste
+        Sortie : une liste avec tous les sommets dans l'ordre dans lesquelles on les passe 
         """
+        # ensemble des arêtes dans l'ordre dans lesquelles on les a passée, mis à jour avec ParcoursProfondeurRecursif
         visited = list()
-        self.ParcoursProfondeurUtils(edge_debut, visited)
+        # première instance pour le parcours en profondeur 
+        self.ParcoursProfondeurRecursif(edge_debut, visited)
 
+        # initialisation de la liste avec le nom des sommets dans l'ordre que l'on voit dans le parcours
         res = [edge_debut[0]]
+        # pour chaque arête visitée lors du parcours
         for edge in visited :
+            # dans le cas où on voit une arête qui ne suit pas directement la dernière on ajoute sa queue à la liste
             if res[-1] != edge[0]:
                 res.append(edge[0])
+            # on ajoute la tête d'arête (nouveau sommet) à la liste
             res.append(edge[1])
         
         return res
@@ -65,14 +81,29 @@ class Graph(object):
 
     def Traduction(self, parcours):
         """
-        """
+        Fonction qui renome les sommets de la liste obtenue lors du parcours profondeur en fontion de leur traitement,
+        plus on les voit tôt, plus leur numéro est faible
 
+        Entrée : une liste avec tous les sommets dans l'ordre dans lesquelles on les passe
+        Sortie : la liste avec les sommets renommés
+
+        Exemple:
+            Entrée: [2, 1, 4, 3, 4, 3, 2]
+            Sortie: [1, 2, 3, 4, 3, 4, 1]
+        """
+        
+        # initialisation du dictionnaire qui va nous permettre de garder en mémoire les changements de noms 
         dico = dict()
-        res = list()
+        # initialisation du compteur qui nous permettra de renommer les sommets
         k = 1
 
+        res = list()
+        
+        # pour chaque sommet de la liste d'entrée
         for vertex in parcours:
+            # si c'est la première fois que l'on rencontre ce sommet
             if vertex not in dico.keys():
+                # on ajoute dans le dictionnaire le sommet avec sa nouvelle traduction (k actuel) et on incrémente k pour le prochain cas
                 dico[vertex] = k
                 k += 1
             res.append(dico[vertex])
@@ -82,13 +113,21 @@ class Graph(object):
 
     def Signature(self):
         """
+        Fonction qui permet de générer une signature du graphe en s'appuyant seulement sur sa structure et non pas sur la 
+        façon dont il a été nommé. On va générer des listes issues des parcours profondeur depuis chaque arête du graphe et 
+        on choisit la plus "petite" (ordre croissant).
+
+        Entrée : le graphe sous forme de liste
+        Sortie : la signature
         """
         
         signatures = list()
 
+        # on met dans une liste toutes les arêtes du graphe
         edges = self.Edges()
+        # pour chaque arête, on génère la liste issue du parcours profondeur auquelle on applique la traduction
         for edge in edges :
-            parcours = self.ParcoursProfondeurEdge(edge)
+            parcours = self.Parcours(edge)
             signatures.append(self.Traduction(parcours))
             
         return min(signatures)
@@ -96,13 +135,20 @@ class Graph(object):
 
 def Test_isomorphisme(graph1, graph2):
     """
+    Fonction qui détermine si deux graphes sont isomorphes en comparant leur signature
+
+    Entrée : deux graphes sous forme de liste
+    Sortie : True s'ils sont isomorphes, False sinon
     """
+    res = True
 
     if graph1.Signature() == graph2.Signature():
         print("les graphes sont isomorphes")
     else :
         print("les graphes ne sont pas isomorphes")
-
+        res = False
+    
+    return res
 
 # Test graphes isomorphes
 filename1 = "FichierTests/graph2bis.txt"
@@ -113,8 +159,8 @@ graph2 = Graph(ReadGraphFromWeb(filename2))
 
 Test_isomorphisme(graph1, graph2)
 
-# Test graphes non isomorphes
 
+# Test graphes non isomorphes
 filename3 = "FichierTests/graph4.txt"
 filename4 = "FichierTests/graph5.txt"
 
