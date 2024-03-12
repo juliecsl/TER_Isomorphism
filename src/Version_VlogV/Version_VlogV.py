@@ -1,9 +1,9 @@
-from ReadFile import *
-from DefineLambda import *
+from Utils import *
+from Version_VlogV.DefineLambda import *
 
 filename = "FichierTests/graph2.txt"
 
-graph = ReadGraph(filename) 
+graph = ReadGraphFromWeb(filename) 
 
 def FirstPartitioning(graph: list) -> dict:
     """

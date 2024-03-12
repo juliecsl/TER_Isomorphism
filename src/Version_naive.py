@@ -1,7 +1,4 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import networkx as nx
-from ReadFile import *
+from Utils import *
 
 # Méthode de test d'isomorphisme entre deux graphes de manière "naive"
 # L'algorithme est le suivant : 
@@ -30,30 +27,6 @@ class Graph(object):
         
         return res
     
-    
-    def Draw(self):
-        """
-        fonction qui permet d'afficher le graphe sous forme planaire dans une fenêtre
-
-        entrée : le graphe
-        sortie : -
-        """
-
-        g = nx.Graph()
-        edges = self.Edges()
-        g.add_edges_from(edges)
-        
-        # on veut quelque chose de planaire (on a une erreur si impossible)
-        try:
-            pos = nx.planar_layout(g)
-        except ValueError as err:
-            print(err.args)
-            
-        # dessiner le graph en affichant les labels des noeuds
-        nx.draw(g, pos=pos, with_labels=True)
-        # afficher
-        plt.show()
-
 
     def ParcoursProfondeurUtils(self, edge, visited):
         """
@@ -135,8 +108,8 @@ def Test_isomorphisme(graph1, graph2):
 filename1 = "FichierTests/graph2bis.txt"
 filename2 = "FichierTests/graph2.txt"
 
-graph1 = Graph(ReadGraph(filename1))
-graph2 = Graph(ReadGraph(filename2))
+graph1 = Graph(ReadGraphFromWeb(filename1))
+graph2 = Graph(ReadGraphFromWeb(filename2))
 
 Test_isomorphisme(graph1, graph2)
 
@@ -145,7 +118,7 @@ Test_isomorphisme(graph1, graph2)
 filename3 = "FichierTests/graph4.txt"
 filename4 = "FichierTests/graph5.txt"
 
-graph3 = Graph(ReadGraph(filename3))
-graph4 = Graph(ReadGraph(filename4))
+graph3 = Graph(ReadGraphFromWeb(filename3))
+graph4 = Graph(ReadGraphFromWeb(filename4))
 
 Test_isomorphisme(graph3, graph4)

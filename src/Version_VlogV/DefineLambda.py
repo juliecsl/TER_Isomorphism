@@ -1,8 +1,8 @@
-from ReadFile import *
+from Utils import *
 
 filename = "FichierTests/graph2.txt"
 
-graph = ReadGraph(filename)  # Remarque: pas une var globale mais est quand meme connu par les fonctions ci dessous ???
+graph = ReadGraphFromWeb(filename)  # Remarque: pas une var globale mais est quand meme connu par les fonctions ci dessous ???
 # print(graph)
  
 
