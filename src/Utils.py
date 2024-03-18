@@ -2,6 +2,7 @@ import re
 import matplotlib.pyplot as plt
 import numpy as np
 import networkx as nx
+import copy
 
 def ReadGraphFromWeb(filename):
     """ 
@@ -98,3 +99,47 @@ def Draw(graphe):
     nx.draw(g, pos=pos, with_labels=True)
     # afficher
     plt.show()
+
+
+def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
+    """
+    Fonction qui créée un graphe isomorphe à celui passé en argument. 
+    Par défaut, échange des noms de noeuds 1 et 3. 
+    INPUT: chemin du fichier contenant la liste du graphe, liste des positions à échanger:
+    OUTUT: graphe isomorphe
+    """
+
+    graph = ReadGraphFromWeb(filename)
+    print(graph)
+    iso = graph.copy()
+
+    # Inversion des positions de liste dans la liste du graphe
+    for position in pos:
+        l1 = graph[position[0]-1]
+        l2 = graph[position[1]-1]
+
+        graph[position[0]-1] = l2
+        graph[position[1]-1] = l1
+
+    # initialisation de la liste contenant l'isomorphisme du graphe
+    iso = copy.deepcopy(graph)
+    for i in range(len(iso)):
+        for j in range(len(iso[i])):
+            iso[i][j] = 0
+
+    # Echange des numéros de sommets
+    for position in pos:  # Pour chaque couple de position à échanger 
+        for i in range(len(graph)):
+            for j in range(len(graph[i])):
+                if iso[i][j] == 0:
+                    if graph[i][j] == position[0]: # échange de position
+                        iso[i][j] = position[1]
+                    elif graph[i][j] == position[1]:  # échange de position
+                        iso[i][j] = position[0]
+                    else:  # si le numéro de noeud n'est pas à changer
+                        iso[i][j] = graph[i][j]
+            
+    return(iso)
+
+    
+# create_isomorphism("FichierTests/graph1.txt")
