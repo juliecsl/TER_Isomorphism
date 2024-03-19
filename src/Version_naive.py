@@ -11,9 +11,17 @@ class Graph(object):
     """ Cette classe va nous fournir des caractéristiques des graphes """
 
     def __init__(self, graph) :
+
         self.graph = graph
     
+    def get(self):
+        """
+        Fonction qui renvoie l'objet
+        """
+        
+        return self.graph
 
+    
     def Edges(self):
         """
         Fonction qui retourne toutes les arêtes du graphe (on considère qu'il est non orienté) dans une liste.
@@ -52,31 +60,9 @@ class Graph(object):
             for neighbor in self.graph[edge[1]-1]:
                 if (edge[1], neighbor) not in visited:
                     self.ParcoursProfondeurRecursifSurAretes((edge[1], neighbor), visited)
-    
-
-    def ParcoursProfondeurRecursifSurSommets(self, edge, visited):
-        """
-        Fonction récursive qui permet de parcourir en profondeur les sommets non encore vues d'un graphe. A chaque appel, on met à jour
-        l'ensemble des sommets déjà traitées
-
-        Entrée : le graphe sous forme de liste, le sommet que l'on traite, l'ensemble des sommets déjà traités dans l'ordre
-        Sortie : rien - on met à jour la liste des sommets visités 
-        """
-        
-        #on liste toutes les arêtes du graphe
-        edges = self.Edges()
-        #on ajoute l'arête à la liste des arêtes visitées
-        visited.append(edge)
-
-        # si l'arête est dans le graphe (vérification)
-        if edge in edges:
-            # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
-            for neighbor in self.graph[edge[1]-1]:
-                if (edge[1], neighbor) not in visited:
-                    self.ParcoursProfondeurRecursifSurSommets((edge[1], neighbor), visited)
 
 
-    def Parcours(self, edge_debut):
+    def ParcoursAretes(self, edge_debut):
         """
         Fonction qui permet de parcourir le graphe en profondeur sur les arêtes depuis une arête donnée
 
@@ -149,7 +135,27 @@ class Graph(object):
         edges = self.Edges()
         # pour chaque arête, on génère la liste issue du parcours profondeur auquelle on applique la traduction
         for edge in edges :
-            parcours = self.Parcours(edge)
+            parcours = self.ParcoursAretes(edge)
+            signatures.append(self.Traduction(parcours))
+            
+        return min(signatures)
+    
+    def Signature2(self):
+        """
+        Fonction qui permet de générer une signature du graphe en s'appuyant seulement sur sa structure et non pas sur la 
+        façon dont il a été nommé. On va générer des listes issues des parcours profondeur depuis chaque sommet du graphe et 
+        on choisit la plus "petite" (ordre croissant).
+
+        Entrée : le graphe sous forme de liste
+        Sortie : la signature
+        """
+        
+        signatures = list()
+
+        # pour chaque arête, on génère la liste issue du parcours profondeur auquelle on applique la traduction
+        for i in range(len(self.graph)):
+            parcours = self.ParcoursSommets(i+1)
+            print(parcours)
             signatures.append(self.Traduction(parcours))
             
         return min(signatures)

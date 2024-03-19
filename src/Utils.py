@@ -140,5 +140,6 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
             
     return(iso)
 
-    
-# create_isomorphism("FichierTests/graph1.txt")
+
+print(ReadGraphFromWeb("FichierTests/graph1.txt"))    
+Draw(ReadGraphFromWeb("FichierTests/graph1.txt"))
