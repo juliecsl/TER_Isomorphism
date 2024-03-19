@@ -119,6 +119,9 @@ def main(graph: list):
             # e est sous la forme d'un tuple (e1, e2)
             MOVE.add(f(e, D))
 
+        # initialisation de la liste qui retient quels blocs ont été crées dans le STATEMENT I
+        blocks_created = list()
+
         # STATEMENT I
         # Pour chaque arete de MOVE
         for e in MOVE:
@@ -129,20 +132,40 @@ def main(graph: list):
             inter = Bj.intersection(MOVE)
 
             if inter != Bj:
-                # Création du nom du nouveau bloc B(j')
-                j_prime = (j, i, D)  # nom de la forme (bloc découpé, bloc parent, direction)
+                # Si le bloc B(j) contient plus d'une arete
+                # (i.e. Si on peut split des éléments)
+                if len(blocks[j]) > 1:
+                    # Création du nom du nouveau bloc B(j')
+                    j_prime = (j, i, D)  # nom de la forme (bloc découpé, bloc parent, direction)
 
-                # Si B(j') n'est pas encore crée
-                if j_prime not in blocks:
-                    # Création de B(j') et insertion de e
-                    blocks[j_prime] = [e]
+                    # Si B(j') n'est pas encore crée
+                    if j_prime not in blocks:
+                        # Création de B(j') et insertion de e
+                        blocks[j_prime] = [e]
+                        blocks_created.append((j, j_prime))
+                    else:
+                        # Insertion de e si le bloque était déjà existant
+                        blocks[j_prime].append(e)
+                    # Suppression de e du bloc B(j)
+                    blocks[j].remove(e)
+        
+        # STATEMENT K
+        for elem in blocks_created:
+            j = elem[0]
+            j_prime = elem[1]
+            for D in ("L", "R"):
+                if (j, D) in PROCESS:
+                    PROCESS.add((j_prime, D))
+                elif len(blocks[j_prime]) <= len(blocks[j]):
+                    PROCESS.add((j_prime, D))
                 else:
-                    # Insertion de e si le bloque était déjà existant
-                    blocks[j_prime].append(e)
-                # Suppression de e du bloc B(j)
-                blocks[j].remove(e)
+                    PROCESS.add((j, D))
+        
+        return blocks
                     
 
-main(graph)
+dico = (main(graph))
+for key, valeur in dico.items():
+    print(key, valeur)
 # print(graph)
 
