@@ -6,7 +6,7 @@ sys.path.append(str(path_root))
 from src.Utils import *
 from DefineLambda import *
 
-filename = "FichierTests/graph2.txt"
+filename = "FichierTests/graph1.txt"
 
 graph = ReadGraphFromWeb(filename) 
 
@@ -34,7 +34,7 @@ def FirstPartitioning(graph: list) -> dict:
     # On partitionne tous les arcs selon leur lamba
     # Une case de ditionnaire = à un meme lambda
     for edge in list_edges:
-        lambda_edge = Lambda(edge)
+        lambda_edge = Lambda(edge, graph)
 
         if lambda_edge in dico_lambda.keys():
             dico_lambda[lambda_edge].append(edge)
@@ -129,7 +129,7 @@ def main(graph: list):
             inter = Bj.intersection(MOVE)
 
             if inter != Bj:
-                pass
+                print(i)
 
 main(graph)
 # print(graph)
