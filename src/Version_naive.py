@@ -92,8 +92,8 @@ class Graph(object):
             Sortie: [1, 2, 3, 4, 3, 4, 1]
         """
         
-        # initialisation du dictionnaire qui va nous permettre de garder en mémoire les changements de noms 
-        dico = dict()
+        # initialisation de la liste qui va nous permettre de garder en mémoire les changements de noms 
+        traduction =  [-1 for i in range(len(self.graph))]
         # initialisation du compteur qui nous permettra de renommer les sommets
         k = 1
 
@@ -102,11 +102,11 @@ class Graph(object):
         # pour chaque sommet de la liste d'entrée
         for vertex in parcours:
             # si c'est la première fois que l'on rencontre ce sommet
-            if vertex not in dico.keys():
+            if traduction[vertex-1] == -1:
                 # on ajoute dans le dictionnaire le sommet avec sa nouvelle traduction (k actuel) et on incrémente k pour le prochain cas
-                dico[vertex] = k
+                traduction[vertex-1] = k
                 k += 1
-            res.append(dico[vertex])
+            res.append(traduction[vertex-1])
         
         return res
     
