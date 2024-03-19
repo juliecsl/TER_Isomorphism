@@ -110,8 +110,7 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
     """
 
     graph = ReadGraphFromWeb(filename)
-    print(graph)
-    iso = graph.copy()
+    iso = []
 
     # Inversion des positions de liste dans la liste du graphe
     for position in pos:

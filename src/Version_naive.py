@@ -32,7 +32,7 @@ class Graph(object):
         return res
     
 
-    def ParcoursProfondeurRecursif(self, edge, visited):
+    def ParcoursProfondeurRecursifSurAretes(self, edge, visited):
         """
         Fonction récursive qui permet de parcourir en profondeur les arêtes non encore vues d'un graphe. A chaque appel, on met à jour
         l'ensemble des arêtes déjà traitées
@@ -51,7 +51,29 @@ class Graph(object):
             # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
             for neighbor in self.graph[edge[1]-1]:
                 if (edge[1], neighbor) not in visited:
-                    self.ParcoursProfondeurRecursif((edge[1], neighbor), visited)
+                    self.ParcoursProfondeurRecursifSurAretes((edge[1], neighbor), visited)
+    
+
+    def ParcoursProfondeurRecursifSurSommets(self, edge, visited):
+        """
+        Fonction récursive qui permet de parcourir en profondeur les sommets non encore vues d'un graphe. A chaque appel, on met à jour
+        l'ensemble des sommets déjà traitées
+
+        Entrée : le graphe sous forme de liste, le sommet que l'on traite, l'ensemble des sommets déjà traités dans l'ordre
+        Sortie : rien - on met à jour la liste des sommets visités 
+        """
+        
+        #on liste toutes les arêtes du graphe
+        edges = self.Edges()
+        #on ajoute l'arête à la liste des arêtes visitées
+        visited.append(edge)
+
+        # si l'arête est dans le graphe (vérification)
+        if edge in edges:
+            # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
+            for neighbor in self.graph[edge[1]-1]:
+                if (edge[1], neighbor) not in visited:
+                    self.ParcoursProfondeurRecursifSurSommets((edge[1], neighbor), visited)
 
 
     def Parcours(self, edge_debut):
@@ -64,7 +86,7 @@ class Graph(object):
         # ensemble des arêtes dans l'ordre dans lesquelles on les a passée, mis à jour avec ParcoursProfondeurRecursif
         visited = list()
         # première instance pour le parcours en profondeur 
-        self.ParcoursProfondeurRecursif(edge_debut, visited)
+        self.ParcoursProfondeurRecursifSurAretes(edge_debut, visited)
 
         # initialisation de la liste avec le nom des sommets dans l'ordre que l'on voit dans le parcours
         res = [edge_debut[0]]
