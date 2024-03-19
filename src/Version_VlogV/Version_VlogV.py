@@ -129,7 +129,19 @@ def main(graph: list):
             inter = Bj.intersection(MOVE)
 
             if inter != Bj:
-                print(i)
+                # Création du nom du nouveau bloc B(j')
+                j_prime = (j, i, D)  # nom de la forme (bloc découpé, bloc parent, direction)
+
+                # Si B(j') n'est pas encore crée
+                if j_prime not in blocks:
+                    # Création de B(j') et insertion de e
+                    blocks[j_prime] = [e]
+                else:
+                    # Insertion de e si le bloque était déjà existant
+                    blocks[j_prime].append(e)
+                # Suppression de e du bloc B(j)
+                blocks[j].remove(e)
+                    
 
 main(graph)
 # print(graph)
