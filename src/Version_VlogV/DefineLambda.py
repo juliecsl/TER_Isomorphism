@@ -5,13 +5,13 @@ sys.path.append(str(path_root))
 
 from src.Utils import *
 
-filename = "FichierTests/graph2.txt"
+# filename = "FichierTests/graph2.txt"
 
-graph = ReadGraphFromWeb(filename)  # Remarque: pas une var globale mais est quand meme connu par les fonctions ci dessous ???
+# graph = ReadGraphFromWeb(filename)  # Remarque: pas une var globale mais est quand meme connu par les fonctions ci dessous ???
 # print(graph)
  
 
-def VertexDegrees(vertex):
+def VertexDegrees(vertex, graph):
     """ 
     Fonction qui renvoie le degré d'un sommet.
     Entrée: Sommet (int)
@@ -20,7 +20,7 @@ def VertexDegrees(vertex):
     return len(graph[vertex-1])
 
 
-def RightFaceCardinality(edge):
+def RightFaceCardinality(edge, graph):
     """ 
     Fonction qui donne le nombre arêtes sur la face immédiatement à droite d'un arc. 
     (i.e. donne la taille de la face) 
@@ -44,7 +44,7 @@ def RightFaceCardinality(edge):
 # print(RightFaceCardinality((1,2)))
 
 
-def LeftFaceCardinality(edge):
+def LeftFaceCardinality(edge, graph):
     """ 
     Fonction qui donne le nombre arêtes sur la face immédiatement à gauche d'un arc. 
     (i.e. donne la taille de la face) 
@@ -67,7 +67,7 @@ def LeftFaceCardinality(edge):
 
 # print(LeftFaceCardinality((1,2)))
 
-def Lambda(edge):
+def Lambda(edge, graph):
     """
     
     Fonction qui renvoie un tuple unique de la forme (face gauche, face droite, degré tail, degré head)
@@ -77,12 +77,12 @@ def Lambda(edge):
     
     """
 
-    lambda_res = (LeftFaceCardinality(edge), RightFaceCardinality(edge), VertexDegrees(edge[0]), VertexDegrees(edge[1]))
+    lambda_res = (LeftFaceCardinality(edge, graph), RightFaceCardinality(edge, graph), VertexDegrees(edge[0], graph), VertexDegrees(edge[1], graph))
     
     return lambda_res
 
 
-def SameLambda(edge1, edge2):
+def SameLambda(edge1, edge2, graph):
     """
     
     Fonction qui renvoie True si les arêtes sont indiscernables et False sinon
@@ -92,7 +92,7 @@ def SameLambda(edge1, edge2):
     
     """
 
-    return True if Lambda(edge1) == Lambda(edge2) else False
+    return True if Lambda(edge1, graph) == Lambda(edge2, graph) else False
 
 # print(SameLambda((2,3), (4,5)))
 # print(SameLambda((1,2), (4,5)))

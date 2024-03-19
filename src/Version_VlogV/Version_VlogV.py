@@ -6,7 +6,7 @@ sys.path.append(str(path_root))
 from src.Utils import *
 from DefineLambda import *
 
-filename = "FichierTests/graph2.txt"
+filename = "FichierTests/graph1.txt"
 
 graph = ReadGraphFromWeb(filename) 
 
@@ -34,7 +34,7 @@ def FirstPartitioning(graph: list) -> dict:
     # On partitionne tous les arcs selon leur lamba
     # Une case de ditionnaire = à un meme lambda
     for edge in list_edges:
-        lambda_edge = Lambda(edge)
+        lambda_edge = Lambda(edge, graph)
 
         if lambda_edge in dico_lambda.keys():
             dico_lambda[lambda_edge].append(edge)
@@ -119,6 +119,9 @@ def main(graph: list):
             # e est sous la forme d'un tuple (e1, e2)
             MOVE.add(f(e, D))
 
+        # initialisation de la liste qui retient quels blocs ont été crées dans le STATEMENT I
+        blocks_created = list()
+
         # STATEMENT I
         # Pour chaque arete de MOVE
         for e in MOVE:
@@ -129,8 +132,40 @@ def main(graph: list):
             inter = Bj.intersection(MOVE)
 
             if inter != Bj:
-                pass
+                # Si le bloc B(j) contient plus d'une arete
+                # (i.e. Si on peut split des éléments)
+                if len(blocks[j]) > 1:
+                    # Création du nom du nouveau bloc B(j')
+                    j_prime = (j, i, D)  # nom de la forme (bloc découpé, bloc parent, direction)
 
-main(graph)
+                    # Si B(j') n'est pas encore crée
+                    if j_prime not in blocks:
+                        # Création de B(j') et insertion de e
+                        blocks[j_prime] = [e]
+                        blocks_created.append((j, j_prime))
+                    else:
+                        # Insertion de e si le bloque était déjà existant
+                        blocks[j_prime].append(e)
+                    # Suppression de e du bloc B(j)
+                    blocks[j].remove(e)
+        
+        # STATEMENT K
+        for elem in blocks_created:
+            j = elem[0]
+            j_prime = elem[1]
+            for D in ("L", "R"):
+                if (j, D) in PROCESS:
+                    PROCESS.add((j_prime, D))
+                elif len(blocks[j_prime]) <= len(blocks[j]):
+                    PROCESS.add((j_prime, D))
+                else:
+                    PROCESS.add((j, D))
+        
+        return blocks
+                    
+
+dico = (main(graph))
+for key, valeur in dico.items():
+    print(key, valeur)
 # print(graph)
 
