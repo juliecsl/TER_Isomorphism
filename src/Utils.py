@@ -4,6 +4,21 @@ import numpy as np
 import networkx as nx
 import copy
 
+
+def WriteGraphInFile(graph, filename):
+    """
+    Fonction qui permet à partir d'un graphe, de créer un fichier pour le stocker comme ceux lu depuis plantri web.
+
+    Entrée : un graph sous forme de liste, le nom du fichier sous lequel on le stockera.
+    Sortie : - 
+    """
+
+    with open(filename, "w") as file:
+        for i in range(len(graph)):
+            string = str(i+1) + '[' + ' '.join(map(str,graph[i])) + ']' + ' '
+            file.write(string)
+
+
 def ReadGraphFromWeb(filename):
     """ 
     Fonction qui permet de mettre un graphe issu d'un fichier texte généré via le programme Plantri version web
@@ -105,12 +120,15 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
     """
     Fonction qui créée un graphe isomorphe à celui passé en argument. 
     Par défaut, échange des noms de noeuds 1 et 3. 
-    INPUT: chemin du fichier contenant la liste du graphe, liste des positions à échanger:
-    OUTUT: graphe isomorphe
+
+    Entrée: chemin du fichier contenant la liste du graphe, liste des positions à échanger:
+    Sortie: graphe isomorphe
     """
 
     graph = ReadGraphFromWeb(filename)
     iso = []
+    # nom du nouveau fichier
+    new_filename = filename.split('.')[0] + 'ISO' + '.txt'
 
     # Inversion des positions de liste dans la liste du graphe
     for position in pos:
@@ -138,8 +156,4 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
                     else:  # si le numéro de noeud n'est pas à changer
                         iso[i][j] = graph[i][j]
             
-    return(iso)
-
-
-print(ReadGraphFromWeb("FichierTests/graph1.txt"))    
-Draw(ReadGraphFromWeb("FichierTests/graph1.txt"))
+    WriteGraphInFile(iso, new_filename)

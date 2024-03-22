@@ -178,6 +178,7 @@ def Test_isomorphisme(graph1, graph2):
     
     return res
 
+
 # Test graphes isomorphes
 filename1 = "FichierTests/graph2bis.txt"
 filename2 = "FichierTests/graph2.txt"
@@ -187,7 +188,7 @@ graph2 = Graph(ReadGraphFromWeb(filename2))
 
 Test_isomorphisme(graph1, graph2)
 
-
+print("")
 # Test graphes non isomorphes
 filename3 = "FichierTests/graph4.txt"
 filename4 = "FichierTests/graph5.txt"
