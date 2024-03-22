@@ -8,7 +8,7 @@ from DefineLambda import *
 
 filename = "FichierTests/graph2.txt"
 
-graph = ReadGraphFromWeb(filename) 
+graph1 = ReadGraphFromWeb(filename) 
 
 def FirstPartitioning(graph: list) -> dict:
     """
@@ -45,7 +45,7 @@ def FirstPartitioning(graph: list) -> dict:
 
 # print(FirstPartitioning(graph))
 
-def f(e: tuple, D: str) -> tuple:
+def f(e: tuple, D: str, graph: list) -> tuple:
     """
     Fonction qui permet de trouver l'arc directement à droite ou à gauche de l'arc e.
 
@@ -57,6 +57,8 @@ def f(e: tuple, D: str) -> tuple:
     """
     tail = e[0]  # n° de la queue de l'arc e
     head = e[1]  # n° de la tete l'arc e
+
+    print(e, D)
 
     if D == 'L':
         i = graph[head-1].index(tail) # on met dans une variable la place de l'arête (head, tail)
@@ -122,7 +124,7 @@ def main(graph: list) -> dict:
         # On ajoute son arc directement à D (droite ou gauche) de lui dans MOVE
         for e in blocks[i]:
             # e est sous la forme d'un tuple (e1, e2)
-            MOVE.append(f(e, D))
+            MOVE.append(f(e, D, graph))
 
         # initialisation de la liste qui retient quels blocs ont été crées dans le STATEMENT I
         blocks_created = list()
@@ -169,20 +171,26 @@ def main(graph: list) -> dict:
         return blocks
                     
 
-dico = (main(graph))
-filename2 = "FichierTests/graph2bis.txt"
-graph2 = ReadGraphFromWeb(filename2) 
-signature2 = main(graph2)
+# dico = (main(graph1))
+# filename2 = "FichierTests/graph2bis.txt"
+# graph2 = ReadGraphFromWeb(filename2) 
+# signature2 = main(graph2)
+# filename3 = "FichierTests/graph2ter.txt"
+# graph3 = ReadGraphFromWeb(filename3)
+# siganture3 = main(graph3)
 
-# print(FirstPartitioning(graph))
-# print("")
-# print(FirstPartitioning(graph2))
-
+# # print(FirstPartitioning(graph))
+# # print("")
+# # print(FirstPartitioning(graph3))
+# # print("################################")
 
 # print(dico)
 # print("")
 # print(signature2)
-# signature2 = main(graph2)
+# print("")
+# print(siganture3)
+# # print(signature2)
+# # signature2 = main(graph2)
 # print(dico)
 # for key, valeur in dico.items():
 #     print(key, valeur)
