@@ -6,10 +6,6 @@ sys.path.append(str(path_root))
 from src.Utils import *
 from DefineLambda import *
 
-filename = "FichierTests/graph2.txt"
-
-graph1 = ReadGraphFromWeb(filename) 
-
 def FirstPartitioning(graph: list) -> dict:
     """
     Fonction qui permet de faire le premier partionnement des aretes. 
@@ -57,8 +53,6 @@ def f(e: tuple, D: str, graph: list) -> tuple:
     """
     tail = e[0]  # n° de la queue de l'arc e
     head = e[1]  # n° de la tete l'arc e
-
-    print(e, D)
 
     if D == 'L':
         i = graph[head-1].index(tail) # on met dans une variable la place de l'arête (head, tail)
@@ -170,7 +164,9 @@ def main(graph: list) -> dict:
         
         return blocks
                     
+# filename = "FichierTests/graph2.txt"
 
+# graph1 = ReadGraphFromWeb(filename) 
 # dico = (main(graph1))
 # filename2 = "FichierTests/graph2bis.txt"
 # graph2 = ReadGraphFromWeb(filename2) 
@@ -195,4 +191,9 @@ def main(graph: list) -> dict:
 # for key, valeur in dico.items():
 #     print(key, valeur)
 # print(graph)
+
+filename = "FichierTests/graph15.txt"  
+graph = ReadGraphFromWeb(filename) 
+signature = main(graph)
+print(signature)
 
