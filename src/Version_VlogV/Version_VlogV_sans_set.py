@@ -162,38 +162,46 @@ def main(graph: list) -> dict:
                 else:
                     PROCESS.append((j, D))
         
-        return blocks
-                    
-# filename = "FichierTests/graph2.txt"
+    return blocks
 
+
+# filename = "FichierTests/graph15.txt"  
+# graph = ReadGraphFromWeb(filename) 
+# signature = main(graph)
+# print(signature)
+
+
+# filename = "FichierTests/graph1.txt"
 # graph1 = ReadGraphFromWeb(filename) 
-# dico = (main(graph1))
-# filename2 = "FichierTests/graph2bis.txt"
+# signature1 = (main(graph1))
+
+# filename2 = "FichierTests/graph1ISO.txt"
 # graph2 = ReadGraphFromWeb(filename2) 
 # signature2 = main(graph2)
-# filename3 = "FichierTests/graph2ter.txt"
-# graph3 = ReadGraphFromWeb(filename3)
-# siganture3 = main(graph3)
 
-# # print(FirstPartitioning(graph))
-# # print("")
-# # print(FirstPartitioning(graph3))
-# # print("################################")
 
-# print(dico)
+# filename3 = "FichierTests/graph1PASISO.txt"
+# graph3 = ReadGraphFromWeb(filename3) 
+# signature3 = main(graph3)
+
+# print(FirstPartitioning(graph1))
+# print("")
+# print(FirstPartitioning(graph2))
+# print("################################")
+
+# print(signature1)
 # print("")
 # print(signature2)
 # print("")
-# print(siganture3)
-# # print(signature2)
-# # signature2 = main(graph2)
+# # print(signature3)
+
+# print("################################")
+# print(len(signature1), len(signature2))
+# print(len(signature2))
+
 # print(dico)
 # for key, valeur in dico.items():
 #     print(key, valeur)
 # print(graph)
 
-filename = "FichierTests/graph15.txt"  
-graph = ReadGraphFromWeb(filename) 
-signature = main(graph)
-print(signature)
 
