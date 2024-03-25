@@ -94,6 +94,9 @@ def main(graph: list) -> dict:
     """
 
     blocks = FirstPartitioning(graph) # Dictionnaire représentant les blocs de partionnement
+    # Tri du dictionnaire dans l'ordre croissant
+    # Pour que l'algo s'execute tjr dans le meme ordre de partitions
+    blocks = dict(sorted(blocks.items()))
 
     # STATEMENT A
     PROCESS = list()
@@ -164,40 +167,37 @@ def main(graph: list) -> dict:
         
     return blocks
 
+def est_iso(graph1: list, graph2: list) -> bool:
+    """ 
+    Fonction qui regarde si deux graphes sont isomorphes d'après leur signature.
 
-# filename = "FichierTests/graph15.txt"  
-# graph = ReadGraphFromWeb(filename) 
-# signature = main(graph)
-# print(signature)
+    Entrée: graph1 et graph2 des listes représentant les graphes.
+    Sortie: True si les deux graphes sont isomorphes, False sinon.
+    """
+
+    signature1 = main(graph1)
+    signature2 = main(graph2)
 
 
-# filename = "FichierTests/graph1.txt"
-# graph1 = ReadGraphFromWeb(filename) 
-# signature1 = (main(graph1))
+    for key, valeur in signature1.items():
+        if key not in signature2:
+            return False
+        elif len(valeur) != len(signature2[key]):
+            return False
+    
+    return True
+    
 
+# filename1 = "FichierTests/graph1.txt"
+# graph1 = ReadGraphFromWeb(filename1) 
 # filename2 = "FichierTests/graph1ISO.txt"
 # graph2 = ReadGraphFromWeb(filename2) 
-# signature2 = main(graph2)
-
-
+# print(est_iso(graph1, graph2))
 # filename3 = "FichierTests/graph1PASISO.txt"
 # graph3 = ReadGraphFromWeb(filename3) 
 # signature3 = main(graph3)
+# print(est_iso(graph1, graph3))
 
-# print(FirstPartitioning(graph1))
-# print("")
-# print(FirstPartitioning(graph2))
-# print("################################")
-
-# print(signature1)
-# print("")
-# print(signature2)
-# print("")
-# # print(signature3)
-
-# print("################################")
-# print(len(signature1), len(signature2))
-# print(len(signature2))
 
 # print(dico)
 # for key, valeur in dico.items():
