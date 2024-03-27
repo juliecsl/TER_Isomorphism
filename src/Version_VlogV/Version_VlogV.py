@@ -8,7 +8,7 @@ from DefineLambda import *
 
 filename = "FichierTests/graph1.txt"
 
-graph = ReadGraphFromWeb(filename) 
+graph = ReadGraph(filename) 
 
 def FirstPartitioning(graph: list) -> dict:
     """

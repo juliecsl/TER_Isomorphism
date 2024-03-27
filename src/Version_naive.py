@@ -14,10 +14,8 @@ class Graph(object):
 
         self.graph = graph
     
+
     def get(self):
-        """
-        Fonction qui renvoie l'objet
-        """
         
         return self.graph
 
@@ -140,6 +138,7 @@ class Graph(object):
             
         return min(signatures)
     
+
     def Signature2(self):
         """
         Fonction qui permet de générer une signature du graphe en s'appuyant seulement sur sa structure et non pas sur la 
@@ -161,7 +160,7 @@ class Graph(object):
         return min(signatures)
         
 
-def Isomorphisme(graph1, graph2):
+def Isomorphisme1(graph1, graph2):
     """
     Fonction qui détermine si deux graphes sont isomorphes en comparant leur signature
 
@@ -173,4 +172,5 @@ def Isomorphisme(graph1, graph2):
         return True
     else :
         return False 
-    
+
+

@@ -189,12 +189,12 @@ def est_iso(graph1: list, graph2: list) -> bool:
     
 
 # filename1 = "FichierTests/graph1.txt"
-# graph1 = ReadGraphFromWeb(filename1) 
+# graph1 = ReadGraph(filename1) 
 # filename2 = "FichierTests/graph1ISO.txt"
-# graph2 = ReadGraphFromWeb(filename2) 
+# graph2 = ReadGraph(filename2) 
 # print(est_iso(graph1, graph2))
 # filename3 = "FichierTests/graph1PASISO.txt"
-# graph3 = ReadGraphFromWeb(filename3) 
+# graph3 = ReadGraph(filename3) 
 # signature3 = main(graph3)
 # print(est_iso(graph1, graph3))
 
