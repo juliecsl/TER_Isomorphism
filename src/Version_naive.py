@@ -161,39 +161,16 @@ class Graph(object):
         return min(signatures)
         
 
-def Test_isomorphisme(graph1, graph2):
+def Isomorphisme(graph1, graph2):
     """
     Fonction qui détermine si deux graphes sont isomorphes en comparant leur signature
 
     Entrée : deux graphes sous forme de liste
     Sortie : True s'ils sont isomorphes, False sinon
     """
-    res = True
 
     if graph1.Signature() == graph2.Signature():
-        print("les graphes sont isomorphes")
+        return True
     else :
-        print("les graphes ne sont pas isomorphes")
-        res = False
+        return False 
     
-    return res
-
-
-# Test graphes isomorphes
-filename1 = "FichierTests/graph2bis.txt"
-filename2 = "FichierTests/graph2.txt"
-
-graph1 = Graph(ReadGraphFromWeb(filename1))
-graph2 = Graph(ReadGraphFromWeb(filename2))
-
-Test_isomorphisme(graph1, graph2)
-
-print("")
-# Test graphes non isomorphes
-filename3 = "FichierTests/graph4.txt"
-filename4 = "FichierTests/graph5.txt"
-
-graph3 = Graph(ReadGraphFromWeb(filename3))
-graph4 = Graph(ReadGraphFromWeb(filename4))
-
-Test_isomorphisme(graph3, graph4)
