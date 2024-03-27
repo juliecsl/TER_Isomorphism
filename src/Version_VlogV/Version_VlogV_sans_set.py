@@ -187,6 +187,11 @@ def est_iso(graph1: list, graph2: list) -> bool:
     signature1 = main(graph1)
     signature2 = main(graph2)
 
+    # Si les signatures ne sont pas de meme taille
+    # C'est que les graphes sont différents.
+    if len(signature1) != len(signature2):
+        return False
+
     # Si les graphes ont les memes caractéristiques d'aretes (key)
     # Et le meme nombre d'aretes dans chaque catégorie
     # On renvoie True
