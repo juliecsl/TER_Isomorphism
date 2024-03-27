@@ -6,6 +6,7 @@ sys.path.append(str(path_root))
 from src.Utils import *
 from DefineLambda import *
 
+
 def FirstPartitioning(graph: list) -> dict:
     """
     Fonction qui permet de faire le premier partionnement des aretes. 
@@ -39,7 +40,7 @@ def FirstPartitioning(graph: list) -> dict:
 
     return dico_lambda
 
-# print(FirstPartitioning(graph))
+
 
 def f(e: tuple, D: str, graph: list) -> tuple:
     """
@@ -65,7 +66,11 @@ def f(e: tuple, D: str, graph: list) -> tuple:
 
     return e
 
+
 def intersection(l1: list, l2: list) -> list:
+    """
+    Fonctione qui retourne l'intersection des éléments de 2 listes. 
+    """
     inter = [value for value in l1 if value in l2]
     return inter
 
@@ -89,8 +94,10 @@ def main(graph: list) -> dict:
     """
     Fonction principale de l'algorithme à appeler pour faire fonctionner le programme.
 
-    Entrée:
-    Sortie:
+    Entrée: Liste représentant les caractéristiques du graphe.
+            De la forme: [[n2, n3, n4, n5], [n1, n5, n4, n3], [n1, n2, n4], ....]
+    Sortie: Dictionnaire représentant la signature du graphe.
+            De la forme {(caractéritique1): [(n1, n3)], (caractéristique2): [(n2, n5), (n3, n1), ...], ...}
     """
 
     blocks = FirstPartitioning(graph) # Dictionnaire représentant les blocs de partionnement
@@ -167,6 +174,7 @@ def main(graph: list) -> dict:
         
     return blocks
 
+
 def est_iso(graph1: list, graph2: list) -> bool:
     """ 
     Fonction qui regarde si deux graphes sont isomorphes d'après leur signature.
@@ -175,10 +183,19 @@ def est_iso(graph1: list, graph2: list) -> bool:
     Sortie: True si les deux graphes sont isomorphes, False sinon.
     """
 
+    # Calcul des signatures des graphes à comparer.
     signature1 = main(graph1)
     signature2 = main(graph2)
 
+    # Si les signatures ne sont pas de meme taille
+    # C'est que les graphes sont différents.
+    if len(signature1) != len(signature2):
+        return False
 
+    # Si les graphes ont les memes caractéristiques d'aretes (key)
+    # Et le meme nombre d'aretes dans chaque catégorie
+    # On renvoie True
+    # Sinon False
     for key, valeur in signature1.items():
         if key not in signature2:
             return False
