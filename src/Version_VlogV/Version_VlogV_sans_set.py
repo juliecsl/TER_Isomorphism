@@ -94,7 +94,7 @@ def main(graph: list) -> dict:
     """
     Fonction principale de l'algorithme à appeler pour faire fonctionner le programme.
 
-    Entrée: iste représentant les caractéristiques du graphe.
+    Entrée: Liste représentant les caractéristiques du graphe.
             De la forme: [[n2, n3, n4, n5], [n1, n5, n4, n3], [n1, n2, n4], ....]
     Sortie: Dictionnaire représentant la signature du graphe.
             De la forme {(caractéritique1): [(n1, n3)], (caractéristique2): [(n2, n5), (n3, n1), ...], ...}
