@@ -1,5 +1,6 @@
 from Utils import *
 
+
 # Méthode de test d'isomorphismes entre deux graphes de manière "naive"
 # L'algorithme est le suivant : 
 # - calcul de la signature pour le graphe 1
@@ -18,6 +19,10 @@ class Graph(object):
     def get(self):
         
         return self.graph
+    
+    def len(self):
+        
+        return len(self.graph)
 
     
     def Edges(self):
@@ -151,4 +156,5 @@ def Isomorphisme1(graph1, graph2):
         return True
     else :
         return False 
+
 
