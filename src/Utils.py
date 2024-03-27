@@ -90,12 +90,13 @@ def ReadGraphFromPlantri(content):
 
     return graph
 
+
 def ReadGraph(filename):
     """ 
     Fonction qui permet de mettre un graphe issu d'un fichier texte généré via le programme Plantri
     dans une liste où chaque élément de la liste correspond aux arêtes du noeuds dont c'est l'indice. 
 
-    Entrée: Fichier texte (.txt) incluant la représentation Plantri d'un graphe
+    Entrée: Fichier texte (.txt) incluant la représentation Plantri d'un graphe ou web
     Sortie: Liste où chaque élément de la liste correspond aux arêtes du noeud dont c'est l'indice 
 
     Exemple:
@@ -105,8 +106,10 @@ def ReadGraph(filename):
 
     with open(filename, "r") as filin:
         line = filin.readline()
+        # cas où on est dans une représentation générée par le programme Plantri
         if "a" in line:
             return ReadGraphFromPlantri(line)
+        # cas où on est dans une représentation générée par le web
         else:
             return ReadGraphFromWeb(line)
 

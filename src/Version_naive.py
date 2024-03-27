@@ -137,27 +137,6 @@ class Graph(object):
             signatures.append(self.Traduction(parcours))
             
         return min(signatures)
-    
-
-    def Signature2(self):
-        """
-        Fonction qui permet de générer une signature du graphe en s'appuyant seulement sur sa structure et non pas sur la 
-        façon dont il a été nommé. On va générer des listes issues des parcours profondeur depuis chaque sommet du graphe et 
-        on choisit la plus "petite" (ordre croissant).
-
-        Entrée : le graphe sous forme de liste
-        Sortie : la signature
-        """
-        
-        signatures = list()
-
-        # pour chaque arête, on génère la liste issue du parcours profondeur auquelle on applique la traduction
-        for i in range(len(self.graph)):
-            parcours = self.ParcoursSommets(i+1)
-            print(parcours)
-            signatures.append(self.Traduction(parcours))
-            
-        return min(signatures)
         
 
 def Isomorphisme1(graph1, graph2):
@@ -172,5 +151,4 @@ def Isomorphisme1(graph1, graph2):
         return True
     else :
         return False 
-
 
