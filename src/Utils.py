@@ -15,14 +15,7 @@ def WriteGraphInFile(graph, filename):
     Entrée : un graph sous forme de liste, le nom du fichier sous lequel on le stockera.
     Sortie : - 
     """
-    
-    # on garde l'ordre des voisins mais on commence par celui le plus petit pour chaque sommet (norme plantri)
-    for i in range(len(graph)):
-        ind = graph[i].index(min(graph[i]))
-        a = graph[i][ind:]
-        b = graph[i][:ind]
-        graph[i] = a + b
-    
+
     with open(filename, "w") as file:
         for i in range(len(graph)):
             string = str(i+1) + '[' + ' '.join(map(str,graph[i])) + ']' + ' '

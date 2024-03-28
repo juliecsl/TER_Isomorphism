@@ -7,20 +7,20 @@ from Version_naive import *
 class TestUtils(unittest.TestCase):
 
     def setUp(self):
-        self.filename1 = "FichierTests/graph2.txt"
-        self.filename2 = "FichierTests/graph2ISO.txt"
+        self.filename1 = "FichierTests/graph5_1.txt"
+        self.filename2 = "FichierTests/graph5_1ISO.txt"
 
     def test1_create_isomorphism(self):
 
         create_isomorphism(self.filename1, [[2,5],[1,3]])
-        res = [[3, 5, 4], [3, 4, 5], [1, 4, 2, 5], [1, 5, 2, 3], [1, 3, 2, 4]]
+        res = [[3, 5, 4], [3, 4, 5], [5, 1, 4, 2], [3, 1, 5, 2], [3, 2, 4, 1]]
         
         self.assertEqual(ReadGraph(self.filename2), res)
 
     def test2_create_isomorphism(self):
 
         create_isomorphism(self.filename1, [[1,3],[2,5]])
-        res = [[3, 5, 4], [3, 4, 5], [1, 4, 2, 5], [1, 5, 2, 3], [1, 3, 2, 4]]
+        res = [[3, 5, 4], [3, 4, 5], [5, 1, 4, 2], [3, 1, 5, 2], [3, 2, 4, 1]]
         
         self.assertEqual(ReadGraph(self.filename2), res)
 
@@ -30,22 +30,20 @@ class TestVersionNaive(unittest.TestCase):
     
     def setUp(self):
 
-        filename1 = "FichierTests/graph1.txt"
+        filename1 = "FichierTests/graph20_1.txt"
         self.graph1 = Graph(ReadGraph(filename1))
 
-        filename1bis = "FichierTests/graph1PASISO.txt"
+        filename1bis = "FichierTests/graph20_2.txt"
         self.graph1bis = Graph(ReadGraph(filename1bis))
-        
-        filename2 = "FichierTests/graph2.txt"
-        self.graph2 = Graph(ReadGraph(filename2))
 
-        filename2bis = "FichierTests/graph2bis.txt"
-        self.graph2bis = Graph(ReadGraph(filename2bis))
+        create_isomorphism(filename1)
+        filename1ter = "FichierTests/graph20_1ISO.txt"
+        self.graph1ter = Graph(ReadGraph(filename1ter))
 
 
     def test1_isomorphisme(self):
         
-        self.assertEqual(Isomorphisme1(self.graph2, self.graph2bis), True,
+        self.assertEqual(Isomorphisme1(self.graph1, self.graph1ter), True,
                          'graphes isomorphes')
         
     def test2_isomorphisme(self):

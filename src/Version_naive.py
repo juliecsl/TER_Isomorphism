@@ -156,5 +156,3 @@ def Isomorphisme1(graph1, graph2):
         return True
     else :
         return False 
-
-
