@@ -13,14 +13,14 @@ class TestUtils(unittest.TestCase):
     def test1_create_isomorphism(self):
 
         create_isomorphism(self.filename1, [[2,5],[1,3]])
-        res = [[3, 5, 4], [3, 4, 5], [5, 1, 4, 2], [3, 1, 5, 2], [3, 2, 4, 1]]
+        res = [[3, 5, 4], [3, 4, 5], [1, 4, 2, 5], [1, 5, 2, 3], [1, 3, 2, 4]]
         
         self.assertEqual(ReadGraph(self.filename2), res)
 
     def test2_create_isomorphism(self):
 
         create_isomorphism(self.filename1, [[1,3],[2,5]])
-        res = [[3, 5, 4], [3, 4, 5], [5, 1, 4, 2], [3, 1, 5, 2], [3, 2, 4, 1]]
+        res = [[3, 5, 4], [3, 4, 5], [1, 4, 2, 5], [1, 5, 2, 3], [1, 3, 2, 4]]
         
         self.assertEqual(ReadGraph(self.filename2), res)
 
@@ -30,14 +30,14 @@ class TestVersionNaive(unittest.TestCase):
     
     def setUp(self):
 
-        filename1 = "FichierTests/graph20_1.txt"
+        filename1 = "FichierTests/graph30_1.txt"
         self.graph1 = Graph(ReadGraph(filename1))
 
-        filename1bis = "FichierTests/graph20_2.txt"
+        filename1bis = "FichierTests/graph30_2.txt"
         self.graph1bis = Graph(ReadGraph(filename1bis))
 
         create_isomorphism(filename1)
-        filename1ter = "FichierTests/graph20_1ISO.txt"
+        filename1ter = "FichierTests/graph30_1ISO.txt"
         self.graph1ter = Graph(ReadGraph(filename1ter))
 
 

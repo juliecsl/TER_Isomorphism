@@ -15,7 +15,13 @@ def WriteGraphInFile(graph, filename):
     Entrée : un graph sous forme de liste, le nom du fichier sous lequel on le stockera.
     Sortie : - 
     """
-
+    # on garde l'ordre des voisins mais on commence par celui le plus petit pour chaque sommet (norme plantri)
+    for i in range(len(graph)):
+        ind = graph[i].index(min(graph[i]))
+        a = graph[i][ind:]
+        b = graph[i][:ind]
+        graph[i] = a + b
+        
     with open(filename, "w") as file:
         for i in range(len(graph)):
             string = str(i+1) + '[' + ' '.join(map(str,graph[i])) + ']' + ' '
@@ -96,7 +102,6 @@ def ReadGraph(filename):
         Entrée: 5 bcde,aedc,abd,acbe,adb
         Sortie: [[2, 3, 4, 5], [1, 5, 4, 3], [1, 2, 4], [1, 3, 2, 5], [1, 4, 2]]
     """
-
     with open(filename, "r") as filin:
         line = filin.readline()
         # cas où on est dans une représentation générée par le programme Plantri

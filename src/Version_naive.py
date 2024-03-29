@@ -63,7 +63,25 @@ class Graph(object):
             for neighbor in self.graph[edge[1]-1]:
                 if (edge[1], neighbor) not in visited:
                     self.ParcoursProfondeurRecursifSurAretes((edge[1], neighbor), visited)
-
+    
+    def ParcoursProfondeurRecursifSurAretes2(self, edge, visited):
+        
+        #on liste toutes les arêtes du graphe
+        edges = self.Edges()
+        #on ajoute l'arête à la liste des arêtes visitées
+        visited.append(edge)
+        # si l'arête est dans le graphe (vérification)
+        if edge in edges:
+            # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
+            # on regarde les voisins et on les prends dans l'ordre à droite de celle d'où l'on vient
+            voisins = self.graph[edge[1]-1]
+            indice = voisins.index(edge[0])
+            regarder = voisins[(indice+1):] + voisins[:(indice+1)]
+            
+            for neighbor in regarder:
+                if (edge[1], neighbor) not in visited:
+                    self.ParcoursProfondeurRecursifSurAretes2((edge[1], neighbor), visited)
+    
 
     def ParcoursAretes(self, edge_debut):
         """
@@ -75,7 +93,7 @@ class Graph(object):
         # ensemble des arêtes dans l'ordre dans lesquelles on les a passée, mis à jour avec ParcoursProfondeurRecursif
         visited = list()
         # première instance pour le parcours en profondeur 
-        self.ParcoursProfondeurRecursifSurAretes(edge_debut, visited)
+        self.ParcoursProfondeurRecursifSurAretes2(edge_debut, visited)
 
         # initialisation de la liste avec le nom des sommets dans l'ordre que l'on voit dans le parcours
         res = [edge_debut[0]]
@@ -131,7 +149,6 @@ class Graph(object):
         Entrée : le graphe sous forme de liste
         Sortie : la signature
         """
-        
         signatures = list()
 
         # on met dans une liste toutes les arêtes du graphe

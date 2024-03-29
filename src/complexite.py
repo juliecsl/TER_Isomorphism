@@ -20,7 +20,8 @@ def Repertoire(repert):
 
 def TempsSignature():
 
-    fichiers = Repertoire("FichierTests")
+    #fichiers = Repertoire("FichierTests")
+    fichiers = ["FichierTests\graph30_1.txt"]
     
     # pour chaque fichier, on note le nombre de sommets avec le temps d'éxécution associé
     res = []
