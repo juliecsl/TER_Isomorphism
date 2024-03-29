@@ -41,29 +41,8 @@ class Graph(object):
                 res.append((vertex+1, neighbor))
         
         return res
-    
 
-    def ParcoursProfondeurRecursifSurAretes(self, edge, visited):
-        """
-        Fonction récursive qui permet de parcourir en profondeur les arêtes non encore vues d'un graphe. A chaque appel, on met à jour
-        l'ensemble des arêtes déjà traitées
-
-        Entrée : le graphe sous forme de liste, l'arête que l'on traite, l'ensemble des arêtes déjà traitées dans l'ordre
-        Sortie : rien - on met à jour la liste des arêtes visitées 
-        """
-        
-        #on liste toutes les arêtes du graphe
-        edges = self.Edges()
-        #on ajoute l'arête à la liste des arêtes visitées
-        visited.append(edge)
-
-        # si l'arête est dans le graphe (vérification)
-        if edge in edges:
-            # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
-            for neighbor in self.graph[edge[1]-1]:
-                if (edge[1], neighbor) not in visited:
-                    self.ParcoursProfondeurRecursifSurAretes((edge[1], neighbor), visited)
-    
+  
     def ParcoursProfondeurRecursifSurAretes2(self, edge, visited):
         
         #on liste toutes les arêtes du graphe

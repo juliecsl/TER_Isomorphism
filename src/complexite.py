@@ -24,12 +24,11 @@ def TempsSignature():
     fichiers = ["FichierTests\graph30_1.txt"]
     
     # pour chaque fichier, on note le nombre de sommets avec le temps d'éxécution associé
-    res = []
+    res = {}
     for fichier in fichiers:
         sous_res = []
         graph = Graph(ReadGraph(fichier))
-        
-        sous_res.append(graph.len())
+      
         measures = []
         for _ in range(100):
             start = time.time()
@@ -41,10 +40,10 @@ def TempsSignature():
 
         moyenne = statistics.mean(measures)
         sous_res.append(moyenne)
-        ecart_type = statistics.stdev(measures)
-        sous_res.append(ecart_type)
+        #ecart_type = statistics.stdev(measures)
+        #sous_res.append(ecart_type)
 
-        res.append(sous_res)
+        res[graph.len()] = sous_res
 
     return res
 
