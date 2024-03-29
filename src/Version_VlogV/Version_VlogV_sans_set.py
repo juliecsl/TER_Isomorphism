@@ -137,7 +137,7 @@ def main(graph: list) -> dict:
         # Pour chaque arete de MOVE
         for e in MOVE:
             j = find_block(blocks, e)  # La clé du bloc de e
-            Bj = list(blocks[j])  # set contenant tous les élements du bloc j
+            Bj = list(blocks[j])  # liste contenant tous les élements du bloc j
 
             # STATEMENT J
             inter = intersection(Bj, MOVE)
@@ -205,9 +205,9 @@ def est_iso(graph1: list, graph2: list) -> bool:
     return True
     
 
-# filename1 = "FichierTests/graph1.txt"
-# graph1 = ReadGraph(filename1) 
-# filename2 = "FichierTests/graph1ISO.txt"
+# filename1 = "FichierTests/graph30_1.txt"
+# graph1 = ReadGraph(filename1)
+# filename2 = "FichierTests/graph30_2.txt"
 # graph2 = ReadGraph(filename2) 
 # print(est_iso(graph1, graph2))
 # filename3 = "FichierTests/graph1PASISO.txt"
