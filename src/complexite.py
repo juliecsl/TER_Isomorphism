@@ -27,13 +27,13 @@ def TempsSignature():
     res = {}
     for fichier in fichiers:
         sous_res = []
-        graph = Graph(ReadGraph(fichier))
+        graph = ReadGraph(fichier)
       
         measures = []
-        for _ in range(100):
+        for _ in range(10):
             start = time.time()
     
-            graph.Signature()
+            Signature(graph)
     
             end = time.time()
             measures.append(end - start)
@@ -43,7 +43,7 @@ def TempsSignature():
         #ecart_type = statistics.stdev(measures)
         #sous_res.append(ecart_type)
 
-        res[graph.len()] = sous_res
+        res[len(graph)] = sous_res
 
     return res
 
