@@ -1,7 +1,6 @@
 # librairies 
 import re
 import matplotlib.pyplot as plt
-import numpy as np
 import networkx as nx
 import copy
 
@@ -61,10 +60,11 @@ def ReadGraphFromWeb(content):
 # on ne peut générer des fichiers de la version programme plantri que sur des machines UNIX
 # ./plantri 5 -a test.txt (un graphe planaire à 5 sommets)
 
-def ReadGraphFromPlantri(content):
+def ReadGraphFromPlantriAscii(content):
     """ 
     Fonction qui permet de mettre un graphe issu d'un fichier texte généré via le programme Plantri
     dans une liste où chaque élément de la liste correspond aux arêtes du noeuds dont c'est l'indice. 
+    ATTENTION ON NE PEUT GENERER QUE DES GRAPHES DE 30 SOMMETS MAXIMUM AVEC LA METHODE ASCII
 
     Entrée: Fichier texte (.txt) incluant la représentation Plantri d'un graphe
     Sortie: Liste où chaque élément de la liste correspond aux arêtes du noeud dont c'est l'indice 
@@ -89,6 +89,13 @@ def ReadGraphFromPlantri(content):
 
     return graph
 
+def ReadGraphFromPlantriPlanarMode(filename):
+    
+    with open(filename, "rb") as filin:
+        
+        return filin.readline()
+
+print(ReadGraphFromPlantriPlanarMode("FichierTests\test.txt"))
 
 def ReadGraph(filename):
     """ 
@@ -106,7 +113,7 @@ def ReadGraph(filename):
         line = filin.readline()
         # cas où on est dans une représentation générée par le programme Plantri
         if "a" in line:
-            return ReadGraphFromPlantri(line)
+            return ReadGraphFromPlantriAscii(line)
         # cas où on est dans une représentation générée par le web
         else:
             return ReadGraphFromWeb(line)
