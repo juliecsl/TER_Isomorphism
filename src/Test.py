@@ -1,11 +1,5 @@
 import unittest
 
-from pathlib import Path
-import sys
-path_root = Path(__file__).parents[2]
-sys.path.append(str(path_root))
-
-from Version_VlogV import Version_VlogV_sans_set
 from Utils import *
 from Version_naive import *
 
@@ -75,12 +69,12 @@ class TestGenerePlanarCode(unittest.TestCase):
 
     def test1_isomorphisme(self):
         
-        self.assertEqual(Version_VlogV_sans_set.est_iso(self.graph1, self.graph1ter), True,
+        self.assertEqual(Isomorphisme1(self.graph1, self.graph1ter), True,
                          'graphes isomorphes')
         
     def test2_isomorphisme(self):
     
-        self.assertEqual(Version_VlogV_sans_set.est_iso(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
+        self.assertEqual(Isomorphisme1(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
 
 
 if __name__ == '__main__':
