@@ -1,4 +1,11 @@
 import unittest
+
+from pathlib import Path
+import sys
+path_root = Path(__file__).parents[2]
+sys.path.append(str(path_root))
+
+from Version_VlogV import Version_VlogV_sans_set
 from Utils import *
 from Version_naive import *
 
@@ -55,25 +62,25 @@ class TestGenerePlanarCode(unittest.TestCase):
     
     def setUp(self):
 
-        filename1 = "FichierTests/ex5_1.txt"
+        filename1 = "FichierTests/ex10_1.txt"
         self.graph1 = ReadGraph(filename1)
 
-        filename1bis = "FichierTests/ex5_2.txt"
+        filename1bis = "FichierTests/ex10_5.txt"
         self.graph1bis = ReadGraph(filename1bis)
 
         create_isomorphism(filename1)
-        filename1ter = "FichierTests/ex5_1ISO.txt"
+        filename1ter = "FichierTests/ex10_1ISO.txt"
         self.graph1ter = ReadGraph(filename1ter)
 
 
     def test1_isomorphisme(self):
         
-        self.assertEqual(Isomorphisme1(self.graph1, self.graph1ter), True,
+        self.assertEqual(Version_VlogV_sans_set.est_iso(self.graph1, self.graph1ter), True,
                          'graphes isomorphes')
         
     def test2_isomorphisme(self):
     
-        self.assertEqual(Isomorphisme1(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
+        self.assertEqual(Version_VlogV_sans_set.est_iso(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
 
 
 if __name__ == '__main__':
