@@ -56,14 +56,14 @@ class TestGenerePlanarCode(unittest.TestCase):
     
     def setUp(self):
 
-        filename1 = "FichierTests/ex10_1.txt"
+        filename1 = "FichierTests/ex100_1.txt"
         self.graph1 = ReadGraph(filename1)
 
-        filename1bis = "FichierTests/ex10_5.txt"
+        filename1bis = "FichierTests/ex100_8.txt"
         self.graph1bis = ReadGraph(filename1bis)
 
         create_isomorphism(filename1)
-        filename1ter = "FichierTests/ex10_1ISO.txt"
+        filename1ter = "FichierTests/ex100_1ISO.txt"
         self.graph1ter = ReadGraph(filename1ter)
 
 
