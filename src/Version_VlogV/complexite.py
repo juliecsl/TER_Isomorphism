@@ -1,4 +1,10 @@
-from Version_naive import *
+from pathlib import Path
+import sys
+path_root = Path(__file__).parents[2]
+sys.path.append(str(path_root))
+
+from src.Utils import *
+from Version_VlogV_sans_set import main
 
 import matplotlib.pyplot as plt
 import statistics
@@ -16,9 +22,9 @@ def Repertoire(repert):
     
     return fichiers
 
-#### COMPLEXITE VERSION NAIVE ####
+#### COMPLEXITE VERSION VLOGV ####
 
-def TempsSignatureAlgoNaif():
+def TempsSignatureAlgoVlogV():
     """
     Fonction qui retourne dans un dictionnaire le temps moyen de calcul de la signature en fonction du nombre de sommets
     """
@@ -32,7 +38,7 @@ def TempsSignatureAlgoNaif():
         measures = []
         # on calcule le temps que met l'algo naif pour faire une signature 
         start = time.time()
-        Signature(graph)
+        main(graph)
         end = time.time()
 
         measures = (end - start)
@@ -50,20 +56,21 @@ def TempsSignatureAlgoNaif():
     return {key:res[key] for key in sorted(res)}
 
 
-def AffichageAlgoNaif():
+def AffichageAlgoVlogV():
     """
     Fonction qui permet d'afficher le temps de calcul signature algo naif en fontion du nombre de sommets
     """
     
-    data = TempsSignatureAlgoNaif().items()
+    data = TempsSignatureAlgoVlogV().items()
     print(data)
     x, y = zip(*data)
 
     plt.plot(x, y)
     plt.xlabel("Nombre de sommets")
     plt.ylabel("Temps moyen de calcul pour la signature")
-    plt.title("Algorithme naif")
+    plt.title("Algorithme VlogV")
     plt.show()
 
 
-AffichageAlgoNaif()
+
+AffichageAlgoVlogV()

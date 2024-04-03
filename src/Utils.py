@@ -89,13 +89,6 @@ def ReadGraphFromPlantriAscii(content):
 
     return graph
 
-def ReadGraphFromPlantriPlanarMode(filename):
-    
-    with open(filename, "rb") as filin:
-        
-        return filin.readline()
-
-print(ReadGraphFromPlantriPlanarMode("FichierTests\test.txt"))
 
 def ReadGraph(filename):
     """ 
