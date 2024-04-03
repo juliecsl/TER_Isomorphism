@@ -3,8 +3,10 @@ import re
 import matplotlib.pyplot as plt
 import networkx as nx
 import copy
+import random
 
-# Fonctions utiles pour notre TER
+
+### ECRITURE/LECTURE DE GRAPHES ###
 
 
 def WriteGraphInFile(graph, filename):
@@ -25,6 +27,102 @@ def WriteGraphInFile(graph, filename):
         for i in range(len(graph)):
             string = str(i+1) + '[' + ' '.join(map(str,graph[i])) + ']' + ' '
             file.write(string)
+
+
+def GeneratePlanarCode(filename):
+    """ 
+    Fonction qui permet de séparer des graphes issus d'un fichier binaire générés via le programme Plantri
+    dans des fichiers différents
+
+    Entrée: Fichier binaire
+    Sortie: Fichier texte (.txt) incluant la représentation Plantri d'un graphe ou web
+
+    Exemple:
+        Entrée: un fichier binaire
+        Sortie: de nouveaux fichiers, 1 par graphe, format plantri web
+    """
+    ### LECTURE DU FICHIER ###
+    with open(filename, "rb") as filin:
+        # les 15 premiers charactères correspondent à la chaîne ">>planar_code<<"
+        code = filin.read(15).decode('utf-8')
+        # les autres charactères composent le ou les graphes
+        data = filin.read()
+
+    # on stocke en mémoire les graphes qu'on lit
+    graphs_int = []
+    # on a besoin de savoir le nombre de sommets dans les graphes que l'on traite
+    taille = data[0]
+        
+    # on va séparer les grahes entre eux : on sait la taille des graphes (en nbr sommets) ainsi qu'apres un binaire zero on change de sommet (ou de graphe)
+    debut = 0
+    fin = -1
+    conteur_sommets = 0
+    for i in range(len(data)) :
+
+        # si on lit un zero binaire, on change de sommet
+        if data[i] == 0:
+            conteur_sommets += 1
+        
+        # dans le cas où on a vu n sommets, n taille du graphe, on change de graphe
+        if conteur_sommets == taille:
+            fin = i
+            res = ListBinaryToInt(data[debut:(fin+1)])
+            graphs_int.append(res)
+
+            # re-initialisation des variables 
+            conteur_sommets = 0
+            debut = fin + 1
+    
+    ### ENREGISTREMENT DES GRAPHES DANS DES FICHIERS ###
+    
+    # on regarde combien de graphes on a à la base 
+    nbr_graphs = len(graphs_int)
+
+    # on se dit que l'on veut 10 graphes au maximum 
+    # cas où on en a moins de 10
+    if nbr_graphs <= 10 :
+        for i in range(nbr_graphs):
+            filename = "FichierTests\ex" + str(taille) + '_' + str(i+1) + '.txt'
+            WriteGraphInFile(graphs_int[i], filename)
+    # cas où on en a plus de 10
+    else:
+        # contiendra le numéro des graphes deja choisis pour ne pas les reprendre
+        hasard = []
+        conteur = 1
+        while conteur <= 10 :
+            val = random.randint(0, (nbr_graphs-1))
+            if val not in hasard:
+                hasard.append(val)
+                filename = "FichierTests\ex" + str(taille) + '_' + str(conteur) + '.txt'
+                WriteGraphInFile(graphs_int[val], filename)
+                conteur += 1
+            
+
+def ListBinaryToInt(content):
+    """ 
+    Fonction qui permet de passer d'une liste format binaire à une liste d'entiers
+    
+    Entrée : b'\x02\x03\x04\x05\x00\x01\x05\x04\x03\x00\x01\x02\x04\x00\x01\x03\x02\x05\x00\x01\x04\x02\x00'
+    Sortie : [[2, 3, 4, 5], [1, 5, 4, 3], [1, 2, 4], [1, 3, 2, 5], [1, 4, 2]]
+    """
+    
+    # le premier élément ne donne que le nombre de sommets, pas intéressant ici
+    liste = content[1:]
+    # on sépare chaque noeud (avec ses voisins) de ses voisins
+    debut = 0
+    graph = []
+    for i in range(len(liste)):
+        if liste[i] == 0 :
+            graph.append(liste[debut:i])
+            debut = i+1
+
+    res = []
+    # pour chaque noeud
+    for vertex in graph :
+        vertex = [vertex[i] for i in range(len(vertex))]
+        res.append(vertex)
+
+    return res
 
 
 def ReadGraphFromWeb(content):
@@ -112,6 +210,10 @@ def ReadGraph(filename):
             return ReadGraphFromWeb(line)
 
 
+
+### DESSIN DE GRAPHE ###
+
+
 def Draw(graphe):
     """
     Fonction qui permet d'afficher le graphe sous forme planaire dans une nouvelle fenêtre.
@@ -139,6 +241,9 @@ def Draw(graphe):
     nx.draw(g, pos=pos, with_labels=True)
     # afficher
     plt.show()
+
+
+### CREATION ISOMORPHISME ###
 
 
 def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
@@ -185,3 +290,8 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
                 iso[i][j] = graph[i][j]
     
     WriteGraphInFile(iso, new_filename)
+
+
+### EXECUTION DE COMMANDES ###
+
+GeneratePlanarCode('FichierTests\graph5.5')

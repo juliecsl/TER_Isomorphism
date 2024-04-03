@@ -1,7 +1,7 @@
 from Utils import *
 
 
-# Méthode de test d'isomorphismes entre deux graphes de manière "naive"
+# Méthode de test d'isomorphismes entre deux graphes de manière "naive" avec parcours des aretes
 # L'algorithme est le suivant : 
 # - calcul de la signature pour le graphe 1
 # - calcul de la signature pour le graphe 2
@@ -9,7 +9,7 @@ from Utils import *
 
 def Edges(graph):
     """
-    Fonction qui retourne toutes les arêtes du graphe (on considère qu'il est non orienté) dans une liste.
+    Fonction qui retourne toutes les arêtes du graphe (on considère qu'il est orienté) dans une liste.
 
     Entrée : le graphe sous forme de liste
     sortie : liste des arêtes
@@ -19,7 +19,8 @@ def Edges(graph):
     for vertex in range(len(graph)):
         # pour tous les voisins du noeud
         for neighbor in graph[vertex]:
-            # on ajoute l'arête (noeud, voisin) à la liste
+            # on ajoute l'arête (noeud, voisin) à la liste DANS UN SEUL SENS
+            #if (neighbor, vertex+1) not in res:
             res.append((vertex+1, neighbor))
         
     return res
