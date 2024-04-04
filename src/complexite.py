@@ -114,5 +114,5 @@ def AffichageAlgoNaifARETES():
     plt.show()
 
 
-AffichageAlgoNaif()
-AffichageAlgoNaifARETES()
+#AffichageAlgoNaif()
+#AffichageAlgoNaifARETES()
