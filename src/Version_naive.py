@@ -20,8 +20,8 @@ def Edges(graph):
         # pour tous les voisins du noeud
         for neighbor in graph[vertex]:
             # on ajoute l'arête (noeud, voisin) à la liste DANS UN SEUL SENS
-            #if (neighbor, vertex+1) not in res:
-            res.append((vertex+1, neighbor))
+            if (neighbor, vertex+1) not in res:
+                res.append((vertex+1, neighbor))
         
     return res
 
@@ -124,9 +124,14 @@ def Signature(graph):
     # on met dans une liste toutes les arêtes du graphe
     edges = Edges(graph)
     # pour chaque arête, on génère la liste issue du parcours profondeur auquelle on applique la traduction
+    # si le parcours est plus long que le plus petit on ne le traduit pas
+    mini = 10e6
     for edge in edges :
         parcours = ParcoursAretes(graph, edge)
-        signatures.append(Traduction(graph, parcours))
+        taille = len(parcours)
+        if taille <= mini :
+            signatures.append(Traduction(graph, parcours))
+            mini = taille
         
     return min(signatures)
 

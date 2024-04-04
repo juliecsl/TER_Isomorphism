@@ -61,9 +61,9 @@ def AffichageAlgoNaif():
     print(data)
     x, y1 = zip(*data)
     # refaire cette droite
-    y2 = [((i/x[0])**2)*y1[0] for i in x]
+    y2 = [((i/x[5])**2)*y1[5] for i in x]
     plt.plot(x, y1)
-    #plt.plot(x, y2)
+    plt.plot(x, y2)
     plt.xlabel("Nombre de sommets")
     plt.ylabel("Temps moyen de calcul pour la signature")
     plt.title("Algorithme naif")
