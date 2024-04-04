@@ -89,7 +89,7 @@ def GeneratePlanarCode(filename):
         # contiendra le numéro des graphes deja choisis pour ne pas les reprendre
         hasard = []
         compteur = 1
-        while compteur < 10 :
+        while compteur < 11 :
             val = random.randint(0, (nbr_graphs-1))
             if val not in hasard:
                 hasard.append(val)
@@ -294,4 +294,4 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
 
 ### EXECUTION DE COMMANDES ###
 
-#GeneratePlanarCode('FichierTests\graph.100')
+GeneratePlanarCode('FichierTests\graph.30')
