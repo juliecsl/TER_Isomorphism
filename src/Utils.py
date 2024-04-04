@@ -56,21 +56,21 @@ def GeneratePlanarCode(filename):
     # on va séparer les grahes entre eux : on sait la taille des graphes (en nbr sommets) ainsi qu'apres un binaire zero on change de sommet (ou de graphe)
     debut = 0
     fin = -1
-    conteur_sommets = 0
+    compteur_sommets = 0
     for i in range(len(data)) :
 
         # si on lit un zero binaire, on change de sommet
         if data[i] == 0:
-            conteur_sommets += 1
+            compteur_sommets += 1
         
         # dans le cas où on a vu n sommets, n taille du graphe, on change de graphe
-        if conteur_sommets == taille:
+        if compteur_sommets == taille:
             fin = i
             res = ListBinaryToInt(data[debut:(fin+1)])
             graphs_int.append(res)
 
             # re-initialisation des variables 
-            conteur_sommets = 0
+            compteur_sommets = 0
             debut = fin + 1
     
     ### ENREGISTREMENT DES GRAPHES DANS DES FICHIERS ###
@@ -88,14 +88,14 @@ def GeneratePlanarCode(filename):
     else:
         # contiendra le numéro des graphes deja choisis pour ne pas les reprendre
         hasard = []
-        conteur = 1
-        while conteur <= 10 :
+        compteur = 1
+        while compteur < 10 :
             val = random.randint(0, (nbr_graphs-1))
             if val not in hasard:
                 hasard.append(val)
-                filename = "FichierTests\ex" + str(taille) + '_' + str(conteur) + '.txt'
+                filename = "FichierTests\ex" + str(taille) + '_' + str(compteur) + '.txt'
                 WriteGraphInFile(graphs_int[val], filename)
-                conteur += 1
+                compteur += 1
             
 
 def ListBinaryToInt(content):
