@@ -294,6 +294,5 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
 
 ### EXECUTION DE COMMANDES ###
 
-GeneratePlanarCode('FichierTests\graph.150')
-GeneratePlanarCode('FichierTests\graph.200')
-GeneratePlanarCode('FichierTests\graph.220')
+#GeneratePlanarCode('FichierTests\graph.150')
+
