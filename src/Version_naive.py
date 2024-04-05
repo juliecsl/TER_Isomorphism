@@ -20,8 +20,8 @@ def Edges(graph):
         # pour tous les voisins du noeud
         for neighbor in graph[vertex]:
             # on ajoute l'arête (noeud, voisin) à la liste DANS UN SEUL SENS
-            #if (neighbor, vertex+1) not in res:
-            res.append((vertex+1, neighbor))
+            if (neighbor, vertex+1) not in res:
+                res.append((vertex+1, neighbor))
         
     return res
 
@@ -35,22 +35,22 @@ def ParcoursProfondeurRecursifSurAretes2(graph, edge, visited):
     """
 
     #on liste toutes les arêtes du graphe
-    edges = Edges(graph)
+    #edges = Edges(graph)
     #on ajoute l'arête à la liste des arêtes visitées
     visited.append(edge)
 
     # si l'arête est dans le graphe (vérification)
-    if edge in edges:
+    #if edge in edges:
 
-        # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
-        # on regarde les voisins et on les prends dans l'ordre à droite de celle d'où l'on vient
-        voisins = graph[edge[1]-1]
-        indice = voisins.index(edge[0])
-        regarder = voisins[(indice+1):] + voisins[:(indice+1)]
-            
-        for neighbor in regarder:
-            if (edge[1], neighbor) not in visited:
-                ParcoursProfondeurRecursifSurAretes2(graph, (edge[1], neighbor), visited)
+    # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
+    # on regarde les voisins et on les prends dans l'ordre à droite de celle d'où l'on vient
+    voisins = graph[edge[1]-1]
+    indice = voisins.index(edge[0])
+    regarder = voisins[(indice+1):] + voisins[:(indice+1)]
+        
+    for neighbor in regarder:
+        if (edge[1], neighbor) not in visited:
+            ParcoursProfondeurRecursifSurAretes2(graph, (edge[1], neighbor), visited)
 
 def ParcoursAretes(graph, edge_debut):
     """
@@ -59,6 +59,8 @@ def ParcoursAretes(graph, edge_debut):
     Entrée : le graphe sous forme de liste
     Sortie : une liste avec tous les sommets dans l'ordre dans lesquelles on les passe 
     """
+    #on liste toutes les arêtes du graphe
+    #edges = Edges(graph)
     # ensemble des arêtes dans l'ordre dans lesquelles on les a passée, mis à jour avec ParcoursProfondeurRecursif
     visited = list()
     # première instance pour le parcours en profondeur 
@@ -122,9 +124,14 @@ def Signature(graph):
     # on met dans une liste toutes les arêtes du graphe
     edges = Edges(graph)
     # pour chaque arête, on génère la liste issue du parcours profondeur auquelle on applique la traduction
+    # si le parcours est plus long que le plus petit on ne le traduit pas
+    mini = 10e6
     for edge in edges :
         parcours = ParcoursAretes(graph, edge)
-        signatures.append(Traduction(graph, parcours))
+        taille = len(parcours)
+        if taille <= mini :
+            signatures.append(Traduction(graph, parcours))
+            mini = taille
         
     return min(signatures)
 
