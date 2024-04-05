@@ -1,5 +1,6 @@
 from Utils import *
-
+import pstats
+import cProfile
 
 # Méthode de test d'isomorphismes entre deux graphes de manière "naive" avec parcours des aretes
 # L'algorithme est le suivant : 
@@ -7,26 +8,8 @@ from Utils import *
 # - calcul de la signature pour le graphe 2
 # - comparaison des deux signatures : s'il y a égalité, on a des graphes qui sont isomorphes
 
-def Edges(graph):
-    """
-    Fonction qui retourne toutes les arêtes du graphe (on considère qu'il est orienté) dans une liste.
 
-    Entrée : le graphe sous forme de liste
-    sortie : liste des arêtes
-    """
-    res = []
-    # pour tous les noeuds
-    for vertex in range(len(graph)):
-        # pour tous les voisins du noeud
-        for neighbor in graph[vertex]:
-            # on ajoute l'arête (noeud, voisin) à la liste DANS UN SEUL SENS
-            if (neighbor, vertex+1) not in res:
-                res.append((vertex+1, neighbor))
-        
-    return res
-
-
-def ParcoursProfondeurRecursifSurAretes2(graph, edge, visited):
+def ParcoursProfondeurRecursifSurAretes(graph, edge, visited):
     """
     Fonction récursive qui permet de parcourir en profondeur les arêtes non encore vues d'un graphe. A chaque appel, on met à jour
     l'ensemble des arêtes déjà traitées
@@ -34,23 +17,18 @@ def ParcoursProfondeurRecursifSurAretes2(graph, edge, visited):
     Sortie : rien - on met à jour la liste des arêtes visitées 
     """
 
-    #on liste toutes les arêtes du graphe
-    #edges = Edges(graph)
     #on ajoute l'arête à la liste des arêtes visitées
     visited.append(edge)
 
-    # si l'arête est dans le graphe (vérification)
-    #if edge in edges:
-
-    # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
     # on regarde les voisins et on les prends dans l'ordre à droite de celle d'où l'on vient
     voisins = graph[edge[1]-1]
     indice = voisins.index(edge[0])
     regarder = voisins[(indice+1):] + voisins[:(indice+1)]
-        
+    
+    # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
     for neighbor in regarder:
-        if (edge[1], neighbor) not in visited:
-            ParcoursProfondeurRecursifSurAretes2(graph, (edge[1], neighbor), visited)
+        if ((neighbor, edge[1]) not in visited) and ((edge[1], neighbor) not in visited):
+            ParcoursProfondeurRecursifSurAretes(graph, (edge[1], neighbor), visited)
 
 def ParcoursAretes(graph, edge_debut):
     """
@@ -59,16 +37,14 @@ def ParcoursAretes(graph, edge_debut):
     Entrée : le graphe sous forme de liste
     Sortie : une liste avec tous les sommets dans l'ordre dans lesquelles on les passe 
     """
-    #on liste toutes les arêtes du graphe
-    #edges = Edges(graph)
+    
     # ensemble des arêtes dans l'ordre dans lesquelles on les a passée, mis à jour avec ParcoursProfondeurRecursif
     visited = list()
     # première instance pour le parcours en profondeur 
-    ParcoursProfondeurRecursifSurAretes2(graph, edge_debut, visited)
+    ParcoursProfondeurRecursifSurAretes(graph, edge_debut, visited)
 
     # initialisation de la liste avec le nom des sommets dans l'ordre que l'on voit dans le parcours
     res = [edge_debut[0]]
-    # pour chaque arête visitée lors du parcours
     for edge in visited :
         # dans le cas où on voit une arête qui ne suit pas directement la dernière on ajoute sa queue à la liste
         if res[-1] != edge[0]:
@@ -113,24 +89,42 @@ def Traduction(graph, parcours):
 def SignatureParcours(graph):
     """
     Fonction qui permet de générer une signature du graphe en s'appuyant seulement sur sa structure et non pas sur la 
-    façon dont il a été nommé. On va générer des listes issues des parcours profondeur depuis chaque arête du graphe et 
+    façon dont il a été nommé. On va générer des sigatures issues de parcours en profondeur depuis chaque arête du graphe et 
     on choisit la plus "petite" (ordre croissant).
 
     Entrée : le graphe sous forme de liste
     Sortie : la signature
     """
     signatures = list()
+    taille = len(graph)
 
-    # on met dans une liste toutes les arêtes du graphe
-    edges = Edges(graph)
-    # pour chaque arête, on génère la liste issue du parcours profondeur auquelle on applique la traduction
-    # si le parcours est plus long que le plus petit on ne le traduit pas
-    mini = 10e6
+    ### on énumère toutes les arêtes en considérant les deux sens ###
+    
+    edges = []
+    for vertex in range(taille):
+        # pour tous les voisins du noeud
+        for neighbor in graph[vertex]:
+            # on ajoute l'arête (noeud, voisin) à la liste 
+            if (neighbor, vertex+1) not in edges:
+                edges.append((vertex+1, neighbor))
+        
+    ### pour chaque arête, on génère la signature auquelle on applique la traduction (car on ne prend pas compte des noms des sommets) ###
+    
+    # on ne traduit que les signatures qui sont de taille plus petite ou égale à celles déjà générées
+    taille_parcours_minimum = 10e6                            # initialisation
+    
     for edge in edges :
         parcours = ParcoursAretes(graph, edge)
-        taille = len(parcours)
-        if taille <= mini :
+        taille_parcours = len(parcours)
+        
+        if taille_parcours <= taille_parcours_minimum :
             signatures.append(Traduction(graph, parcours))
-            mini = taille
+            taille_parcours_minimum = taille                  # mise à jour de la taille minimum de parcours
         
     return min(signatures)
+
+# graph1 = ReadGraph("FichierTests\ex100_1.txt")
+# SignatureParcours(graph1)
+# cProfile.run("SignatureParcours(graph1)", "my_func_stats")
+# p = pstats.Stats("my_func_stats")
+# p.sort_stats("cumulative").print_stats()

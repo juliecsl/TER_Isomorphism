@@ -32,14 +32,14 @@ class TestVersionNaive(unittest.TestCase):
     
     def setUp(self):
 
-        filename1 = "FichierTests/graph30_1.txt"
+        filename1 = "FichierTests/ex150_1.txt"
         self.graph1 = ReadGraph(filename1)
 
-        filename1bis = "FichierTests/graph30_2.txt"
+        filename1bis = "FichierTests/ex150_2.txt"
         self.graph1bis = ReadGraph(filename1bis)
 
         create_isomorphism(filename1)
-        filename1ter = "FichierTests/graph30_1ISO.txt"
+        filename1ter = "FichierTests/ex150_1ISO.txt"
         self.graph1ter = ReadGraph(filename1ter)
 
 

@@ -34,7 +34,7 @@ def TempsSignature(version):
         graph = ReadGraph(fichier)
         measures = []
         taille = len(graph)
-        if taille <= 50 :
+        if taille <= 220 :
 
             if version == "vlogv" :
                 # on calcule le temps que met l'algo vlogv pour faire une signature
@@ -86,4 +86,4 @@ def AffichageGraphique(version):
 
 
 # AffichageGraphique("vlogv")
-# AffichageGraphique("naif")
+AffichageGraphique("naive")
