@@ -5,6 +5,9 @@ sys.path.append(str(path_root))
 
 from src.Utils import *
 from DefineLambda import *
+import time
+import pstats
+import cProfile
 
 
 def FirstPartitioning(graph: list) -> dict:
@@ -69,10 +72,14 @@ def f(e: tuple, D: str, graph: list) -> tuple:
 
 def intersection(l1: list, l2: list) -> list:
     """
-    Fonctione qui retourne l'intersection des éléments de 2 listes. 
+    Fonction qui retourne l'intersection des éléments de 2 listes.
     """
-    inter = [value for value in l1 if value in l2]
-    return inter
+
+    # Passage sous forme de sets pour améliorer la complexité en temps.
+    set_l1 = set(l1)
+    set_l2 = set(l2)
+
+    return list(set_l1.intersection(set_l2))
 
 
 def find_block(dico: dict, e: tuple) -> tuple:
@@ -206,12 +213,33 @@ def est_iso(graph1: list, graph2: list) -> bool:
     
 ### COMMANDES TESTS ###
 
-#filename1 = "FichierTests/graph30_1.txt"
-#graph1 = ReadGraph(filename1)
-#filename2 = "FichierTests/graph30_2.txt"
-#graph2 = ReadGraph(filename2) 
-#print(est_iso(graph1, graph2))
-# filename3 = "FichierTests/graph1PASISO.txt"
+# filename1 = "FichierTests/ex220_1.txt"
+# graph1 = ReadGraph(filename1)
+
+# Pour regarder le temps que prennent les lignes de code:
+# cProfile.run("main(graph1)", "my_func_stats")
+# p = pstats.Stats("my_func_stats")
+# p.sort_stats("cumulative").print_stats()
+
+
+# execution_time = timeit.timeit("main(graph1)", globals=globals(), number=10)
+# print("Temps d'exécution:", execution_time, "secondes")
+# start = time.time()
+# signature1 = main(graph1)
+
+# # create_isomorphism(filename1)
+# filename2 = "FichierTests/ex220_1ISO.txt"
+# graph2 = ReadGraph(filename2) 
+# print(est_iso(graph1, graph2))
+# end = time.time()
+# print(end-start)
+
+# filename2 = "FichierTests/graph30_2.txt"
+# graph2 = ReadGraph(filename1) 
+# print(est_iso(graph1, graph2))
+# end = time.time()
+# print(end-start)
+# # filename3 = "FichierTests/graph1PASISO.txt"
 # graph3 = ReadGraph(filename3) 
 # signature3 = main(graph3)
 # print(est_iso(graph1, graph3))
