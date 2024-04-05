@@ -1,4 +1,7 @@
-from Version_naive import *
+from SignatureNaive import SignatureParcours
+from SignatureVlogV import SignaturePartitionnement
+from Utils import *
+
 
 import matplotlib.pyplot as plt
 import statistics
@@ -16,9 +19,9 @@ def Repertoire(repert):
     
     return fichiers
 
-#### COMPLEXITE VERSION NAIVE ####
+#### COMPLEXITE ####
 
-def TempsSignatureAlgoNaif():
+def TempsSignature(version):
     """
     Fonction qui retourne dans un dictionnaire le temps moyen de calcul de la signature en fonction du nombre de sommets
     """
@@ -32,10 +35,18 @@ def TempsSignatureAlgoNaif():
         measures = []
         taille = len(graph)
         if taille <= 50 :
-            # on calcule le temps que met l'algo naif pour faire une signature 
-            start = time.time()
-            Signature(graph)
-            end = time.time()
+
+            if version == "vlogv" :
+                # on calcule le temps que met l'algo vlogv pour faire une signature
+                start = time.time()
+                SignaturePartitionnement(graph)
+                end = time.time()
+
+            elif version == "naive":
+                # on calcule le temps que met l'algo naif pour faire une signature
+                start = time.time()
+                SignatureParcours(graph)
+                end = time.time()
 
             measures = (end - start)
             if taille in res:
@@ -52,22 +63,27 @@ def TempsSignatureAlgoNaif():
     return {key:res[key] for key in sorted(res)}
 
 
-def AffichageAlgoNaif():
+def AffichageGraphique(version):
     """
     Fonction qui permet d'afficher le temps de calcul signature algo naif en fontion du nombre de sommets
     """
     
-    data = TempsSignatureAlgoNaif().items()
+    data = TempsSignature(version).items()
     print(data)
     x, y1 = zip(*data)
     # refaire cette droite
-    y2 = [((i/x[5])**2)*y1[5] for i in x]
+    #y2 = [((i/x[5])**2)*y1[5] for i in x]
     plt.plot(x, y1)
-    plt.plot(x, y2)
+    #plt.plot(x, y2)
     plt.xlabel("Nombre de sommets")
     plt.ylabel("Temps moyen de calcul pour la signature")
-    plt.title("Algorithme naif")
+    if version == "vlogv":
+        plt.title("Algorithme VlogV")
+    elif version == "naive":
+        plt.title("Algorithme naif")
+
     plt.show()
 
 
-AffichageAlgoNaif()
+# AffichageGraphique("vlogv")
+# AffichageGraphique("naif")

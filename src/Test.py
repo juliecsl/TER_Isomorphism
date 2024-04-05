@@ -1,7 +1,8 @@
 import unittest
 
 from Utils import *
-from Version_naive import *
+from Isomorphisme import *
+from SignatureVlogV import *
 
 # Tests du module Utils
 
@@ -44,15 +45,15 @@ class TestVersionNaive(unittest.TestCase):
 
     def test1_isomorphisme(self):
         
-        self.assertEqual(Isomorphisme1(self.graph1, self.graph1ter), True,
+        self.assertEqual(IsomorphismeNaif(self.graph1, self.graph1ter), True,
                          'graphes isomorphes')
         
     def test2_isomorphisme(self):
         
-        self.assertEqual(Isomorphisme1(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
+        self.assertEqual(IsomorphismeNaif(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
 
 
-class TestGenerePlanarCode(unittest.TestCase):
+class TestVersionVlogV(unittest.TestCase):
     
     def setUp(self):
 
@@ -69,12 +70,12 @@ class TestGenerePlanarCode(unittest.TestCase):
 
     def test1_isomorphisme(self):
         
-        self.assertEqual(Isomorphisme1(self.graph1, self.graph1ter), True,
+        self.assertEqual(est_iso(self.graph1, self.graph1ter), True,
                          'graphes isomorphes')
         
     def test2_isomorphisme(self):
     
-        self.assertEqual(Isomorphisme1(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
+        self.assertEqual(est_iso(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
 
 
 if __name__ == '__main__':

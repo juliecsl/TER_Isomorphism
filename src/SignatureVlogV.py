@@ -1,9 +1,4 @@
-from pathlib import Path
-import sys
-path_root = Path(__file__).parents[2]
-sys.path.append(str(path_root))
-
-from src.Utils import *
+from Utils import *
 from DefineLambda import *
 import time
 import pstats
@@ -97,7 +92,7 @@ def find_block(dico: dict, e: tuple) -> tuple:
             return(cle)
 
 
-def main(graph: list) -> dict:
+def SignaturePartitionnement(graph: list) -> dict:
     """
     Fonction principale de l'algorithme à appeler pour faire fonctionner le programme.
 
@@ -191,8 +186,8 @@ def est_iso(graph1: list, graph2: list) -> bool:
     """
 
     # Calcul des signatures des graphes à comparer.
-    signature1 = main(graph1)
-    signature2 = main(graph2)
+    signature1 = SignaturePartitionnement(graph1)
+    signature2 = SignaturePartitionnement(graph2)
 
     # Si les signatures ne sont pas de meme taille
     # C'est que les graphes sont différents.

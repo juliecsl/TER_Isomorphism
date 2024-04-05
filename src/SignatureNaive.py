@@ -110,7 +110,7 @@ def Traduction(graph, parcours):
     return res
 
 
-def Signature(graph):
+def SignatureParcours(graph):
     """
     Fonction qui permet de générer une signature du graphe en s'appuyant seulement sur sa structure et non pas sur la 
     façon dont il a été nommé. On va générer des listes issues des parcours profondeur depuis chaque arête du graphe et 
@@ -134,17 +134,3 @@ def Signature(graph):
             mini = taille
         
     return min(signatures)
-
-
-def Isomorphisme1(graph1, graph2):
-    """
-    Fonction qui détermine si deux graphes sont isomorphes en comparant leur signature
-
-    Entrée : deux graphes sous forme de liste
-    Sortie : True s'ils sont isomorphes, False sinon
-    """
-
-    if Signature(graph1) == Signature(graph2):
-        return True
-    else :
-        return False
