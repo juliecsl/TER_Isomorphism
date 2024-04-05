@@ -34,25 +34,27 @@ def TempsSignature(version):
         graph = ReadGraph(fichier)
         measures = []
         taille = len(graph)
-        if taille <= 50 :
 
-            if version == "vlogv" :
+        # Si on veut générer le graphique pour l'algo en VlogV
+        if version == "vlogv" :
                 # on calcule le temps que met l'algo vlogv pour faire une signature
                 start = time.time()
                 SignaturePartitionnement(graph)
                 end = time.time()
+        
+        # Si on générer le graphique pour l'algo naif
+        if taille <= 50 and version == "naive" :
 
-            elif version == "naive":
-                # on calcule le temps que met l'algo naif pour faire une signature
-                start = time.time()
-                SignatureParcours(graph)
-                end = time.time()
+            # on calcule le temps que met l'algo naif pour faire une signature
+            start = time.time()
+            SignatureParcours(graph)
+            end = time.time()
 
-            measures = (end - start)
-            if taille in res:
-                res[taille].append(measures)
-            else:
-                res[taille] = [measures]
+        measures = (end - start)
+        if taille in res:
+            res[taille].append(measures)
+        else:
+            res[taille] = [measures]
     
     #on calcule maintenant les moyennes
     for key in res:
@@ -83,6 +85,10 @@ def AffichageGraphique(version):
         plt.title("Algorithme naif")
 
     plt.show()
+
+
+def saveDataComplexite():
+    pass
 
 
 # AffichageGraphique("vlogv")
