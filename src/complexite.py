@@ -4,6 +4,7 @@ from Utils import *
 
 
 import matplotlib.pyplot as plt
+import pandas as pd
 import statistics
 import time
 import os 
@@ -78,7 +79,7 @@ def AffichageGraphique(version):
     plt.plot(x, y1)
     #plt.plot(x, y2)
     plt.xlabel("Nombre de sommets")
-    plt.ylabel("Temps moyen de calcul pour la signature")
+    plt.ylabel("Temps moyen de calcul pour la signature (en secondes)")
     if version == "vlogv":
         plt.title("Algorithme VlogV")
     elif version == "naive":
@@ -87,9 +88,18 @@ def AffichageGraphique(version):
     plt.show()
 
 
-def saveDataComplexite():
-    pass
+def saveDataComplexite(version):
 
+    # génère la moyenne de temps des graphes
+    data = TempsSignature(version).items()
 
+    # Créer un DataFrame pandas à partir des données
+    df = pd.DataFrame(data, columns=['Nb Noeuds', 'Moyenne Temps'])
+
+    # Enregistre le Dataframe dans un fichier Excel
+    df.to_excel('donnees.xlsx', index=False)
+    print("Fichier de données sauvegardé.")
+
+# saveDataComplexite("vlogv")
 # AffichageGraphique("vlogv")
-AffichageGraphique("naive")
+# AffichageGraphique("naive")
