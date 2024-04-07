@@ -173,10 +173,6 @@ def SignaturePartitionnement(graph: list) -> dict:
                     PROCESS.append((j_prime, D))
                 else:
                     PROCESS.append((j, D))
-
-    # Standardise la signature pour qu'elle n'est pas de numéro d'arc.
-    for key in blocks:
-        blocks[key] = len(blocks[key])
         
     return blocks
 
@@ -193,23 +189,30 @@ def est_iso(graph1: list, graph2: list) -> bool:
     signature1 = SignaturePartitionnement(graph1)
     signature2 = SignaturePartitionnement(graph2)
 
-    if signature1 == signature2:
-        return True
-    return False
+    # Si les signatures ne sont pas de meme taille
+    # C'est que les graphes sont différents.
+    if len(signature1) != len(signature2):
+        return False
+
+    # Si les graphes ont les memes caractéristiques d'aretes (key)
+    # Et le meme nombre d'aretes dans chaque catégorie
+    # On renvoie True
+    # Sinon False
+    for key, valeur in signature1.items():
+        if key not in signature2:
+            return False
+        elif len(valeur) != len(signature2[key]):
+            return False
+    
+    return True
     
 ### COMMANDES TESTS ###
 
-# filename1 = "FichierTests/ex220_1.txt"
-# graph1 = ReadGraph(filename1)
-# # before_memory = sys.getallocatedblocks()
-# # s1 = SignaturePartitionnement(graph1)
-
-# filename2 = "FichierTests/ex220_1.txt"
-# graph2 = ReadGraph(filename2)
-# print(est_iso(graph1, graph2))
-
-
-# print(s1)
+filename1 = "FichierTests/ex5_1.txt"
+graph1 = ReadGraph(filename1)
+# before_memory = sys.getallocatedblocks()
+s1 = SignaturePartitionnement(graph1)
+print(s1)
 # diff_memory = sys.getallocatedblocks() - before_memory
 # print(f'{diff_memory} blocs supplémentaires alloués')
 # print("Taille signature:", sys.getsizeof(s1), "octets.")
@@ -224,5 +227,28 @@ def est_iso(graph1: list, graph2: list) -> bool:
 # print("Temps d'exécution:", execution_time, "secondes")
 # start = time.time()
 # signature1 = main(graph1)
+
+# # create_isomorphism(filename1)
+# filename2 = "FichierTests/ex220_1ISO.txt"
+# graph2 = ReadGraph(filename2) 
+# print(est_iso(graph1, graph2))
+# end = time.time()
+# print(end-start)
+
+# filename2 = "FichierTests/graph30_2.txt"
+# graph2 = ReadGraph(filename1) 
+# print(est_iso(graph1, graph2))
+# end = time.time()
+# print(end-start)
+# # filename3 = "FichierTests/graph1PASISO.txt"
+# graph3 = ReadGraph(filename3) 
+# signature3 = main(graph3)
+# print(est_iso(graph1, graph3))
+
+
+# print(dico)
+# for key, valeur in dico.items():
+#     print(key, valeur)
+# print(graph)
 
 
