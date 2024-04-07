@@ -196,21 +196,9 @@ def SignaturePartitionnement(graph: list) -> dict:
     return blocks
 
 
-def est_iso(graph1: list, graph2: list) -> bool:
-    """ 
-    Fonction qui regarde si deux graphes sont isomorphes d'après leur signature.
 
-    Entrée: graph1 et graph2 des listes représentant les graphes.
-    Sortie: True si les deux graphes sont isomorphes, False sinon.
-    """
 
-    # Calcul des signatures des graphes à comparer.
-    signature1 = SignaturePartitionnement(graph1)
-    signature2 = SignaturePartitionnement(graph2)
 
-    if signature1 == signature2:
-        return True
-    return False
     
 ### COMMANDES TESTS ###
 
