@@ -5,11 +5,16 @@ import pstats
 import cProfile
 import sys
 
+# Algorithme inspiré de l'article:
+# J. E. HOPCROFT AND R. E. TARJAN, "A V log V Algorithm for Isomorphism 
+# of Triconnected Planar Graphs," Computer Science Department, Cornell University, 
+# Ithaca, NY, 1972
+
 def FirstPartitioning(graph: list) -> dict:
     """
     Fonction qui permet de faire le premier partionnement des aretes. 
-    Des aretes ayant le meme lambda (meme nombre de degré entrant/sortant et longueur de face droite/gauche)
-    seront mises dans le meme bloc.
+    Des aretes ayant le meme lambda (i.e meme nombre de degré entrant/sortant 
+    et longueur de face droite/gauche) seront mises dans le meme bloc.
 
     Entrée: Liste représentant les caractéristiques du graphe.
             De la forme: [[n2, n3, n4, n5], [n1, n5, n4, n3], [n1, n2, n4], ....]
@@ -68,6 +73,11 @@ def f(e: tuple, D: str, graph: list) -> tuple:
 def intersection(l1: list, l2: list) -> list:
     """
     Fonction qui retourne l'intersection des éléments de 2 listes.
+
+    Utilisation de set dans la fonction pour améliorer la complexité en temps.
+
+    Entrée: l1 et l2 des listes
+    Sortie: une liste du resultat de (l1 ∩ l2)
     """
 
     # Passage sous forme de sets pour améliorer la complexité en temps.
@@ -94,12 +104,17 @@ def find_block(dico: dict, e: tuple) -> tuple:
 
 def SignaturePartitionnement(graph: list) -> dict:
     """
-    Fonction principale de l'algorithme à appeler pour faire fonctionner le programme.
+    Fonction mimant le fonctionnement de l'algorithme proposé dans l'article:
+    J. E. HOPCROFTANDR. E. TAaJAN,"A V log V AIgorithm for Isomorphism 
+    of Triconnected Planar Graphs," Computer Science Department, Cornell University, 
+    Ithaca, NY, 1972
+
+    Les noms des variables et constantes proposées dans l'article ont été gardés.
 
     Entrée: Liste représentant les caractéristiques du graphe.
             De la forme: [[n2, n3, n4, n5], [n1, n5, n4, n3], [n1, n2, n4], ....]
     Sortie: Dictionnaire représentant la signature du graphe.
-            De la forme {(caractéritique1): [(n1, n3)], (caractéristique2): [(n2, n5), (n3, n1), ...], ...}
+            De la forme {(caractéritique1): nb d'arcs, (caractéristique2): nb d'arcs, ...}
     """
 
     blocks = FirstPartitioning(graph) # Dictionnaire représentant les blocs de partionnement
