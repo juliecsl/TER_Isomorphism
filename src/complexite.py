@@ -102,3 +102,65 @@ def saveDataComplexite(version):
 # saveDataComplexite("vlogv")
 # AffichageGraphique("vlogv")
 # AffichageGraphique("naive")
+
+###########################################
+
+def nbr_aretes(graph) :
+    taille = (len(graph))
+    edges = []
+    for vertex in range(taille):
+        # pour tous les voisins du noeud
+        for neighbor in graph[vertex]:
+            # on ajoute l'arête (noeud, voisin) à la liste 
+            if (neighbor, vertex+1) not in edges:
+                edges.append((vertex+1, neighbor))
+    
+    return len(edges)
+
+def TempsSignature2():
+    """
+    Fonction qui retourne dans un dictionnaire le temps moyen de calcul de la signature en fonction du nombre de sommets
+    """
+    fichiers = Repertoire("FichierTests") 
+    # pour chaque fichier, on note le nombre de sommets avec le temps d'éxécution associé
+    res = {}
+    for fichier in fichiers:
+        graph = ReadGraph(fichier)
+        measures = []
+        taille = nbr_aretes(graph)
+
+        # on calcule le temps que met l'algo naif pour faire une signature
+        start = time.time()
+        SignatureParcours(graph)
+        end = time.time()
+
+        measures = (end - start)
+        if taille in res:
+            res[taille].append(measures)
+        else:
+            res[taille] = [measures]
+    
+    #on calcule maintenant les moyennes
+    for key in res:
+       res[key] = statistics.mean(res[key])
+    
+    #ecart_type = statistics.stdev(measures)
+
+    return {key:res[key] for key in sorted(res)}
+
+
+def AffichageGraphique2():
+    """
+    Fonction qui permet d'afficher le temps de calcul signature algo naif en fontion du nombre de sommets
+    """
+    
+    data = TempsSignature2().items()
+    x, y1 = zip(*data)
+    plt.plot(x, y1)
+    plt.xlabel("Nombre d'arêtes'")
+    plt.ylabel("Temps moyen de calcul pour la signature (en secondes)")
+    plt.title("Algorithme naif")
+
+    plt.show()
+
+AffichageGraphique2()
