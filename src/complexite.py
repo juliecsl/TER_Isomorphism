@@ -163,4 +163,4 @@ def AffichageGraphique2():
 
     plt.show()
 
-AffichageGraphique2()
+#AffichageGraphique2()

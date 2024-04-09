@@ -105,23 +105,29 @@ def SignatureParcours(graph):
         # pour tous les voisins du noeud
         for neighbor in graph[vertex]:
             # on ajoute l'arête (noeud, voisin) à la liste 
-            if (neighbor, vertex+1) not in edges:
-                edges.append((vertex+1, neighbor))
+            edges.append((vertex+1, neighbor))
         
     ### pour chaque arête, on génère la signature auquelle on applique la traduction (car on ne prend pas compte des noms des sommets) ###
     
+    # for edge in edges :
+    #     parcours = ParcoursAretes(graph, edge)
+    #     signatures.append(Traduction(graph, parcours))
+
     # on ne traduit que les signatures qui sont de taille plus petite ou égale à celles déjà générées
     taille_parcours_minimum = 10e6                            # initialisation
-    
-    for edge in edges :
+
+    for edge in edges:
         parcours = ParcoursAretes(graph, edge)
         taille_parcours = len(parcours)
-        
+
         if taille_parcours <= taille_parcours_minimum :
             signatures.append(Traduction(graph, parcours))
-            taille_parcours_minimum = taille                  # mise à jour de la taille minimum de parcours
-        
-    return min(signatures)
+            taille_parcours_minimum = taille_parcours
+
+    longueur_min = min(len(liste) for liste in signatures)
+    signatures_longueur_min = [liste for liste in signatures if len(liste) == longueur_min]
+
+    return min(signatures_longueur_min)
 
 # graph1 = ReadGraph("FichierTests\ex100_1.txt")
 # SignatureParcours(graph1)
