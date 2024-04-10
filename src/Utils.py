@@ -77,6 +77,7 @@ def GeneratePlanarCode(filename):
     
     # on regarde combien de graphes on a à la base 
     nbr_graphs = len(graphs_int)
+    print(nbr_graphs)
 
     # on se dit que l'on veut 10 graphes au maximum 
     # cas où on en a moins de 10
@@ -294,4 +295,4 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
 
 ### EXECUTION DE COMMANDES ###
 
-#GeneratePlanarCode('FichierTests\graph.150')
+#GeneratePlanarCode('FichierTests\graph.20')
