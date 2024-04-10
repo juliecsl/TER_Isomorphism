@@ -38,7 +38,7 @@ Le répertoire contient des graphiques représentant en moyenne le temps d'exéc
 
 ### SRC
 
-Le fichier source contient les méthodes que nous avons implémentées. 
+Le répertoire source contient les méthodes que nous avons implémentées. 
 
 **Utilitaires**
 
@@ -64,6 +64,8 @@ Cette version de l'algorithme de signature correspond à celle imaginée par Tar
 Pour savoir si deux graphes sont isomorphes, nous comparons leur signature issue d'un de nos algorithme : ``Isomorphisme.py``.
 
 **Interface Graphique**
+
+``main.py``
 
 ><span style="color:orange">⚠️ Warning</span>
 >
