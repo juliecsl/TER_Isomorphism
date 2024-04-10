@@ -36,18 +36,38 @@ Voir [Documentation plantri](https://users.cecs.anu.edu.au/~bdm/plantri/plantri-
 
 Le répertoire contient des graphiques représentant en moyenne le temps d'exécution d'un des algorithmes de signature en fonction du nombre de sommets du graphe. 
 
-### src
+### SRC
 
 Le fichier source contient les méthodes que nous avons implémentées. 
 
 **Utilitaires**
 
-Le fichier 
+Le fichier ``Utils.py`` comprend les méthodes permettant de lire les fichiers de graphe planaire pour les utiliser par la suite dans nos algorithmes, une méthode permettant de générer des isomorphes à partir d'un graphe, ainsi qu'une méthode permettant de visualiser le graphe. 
+
+**Signature Naïve**
+
+Nous avons commencé par implémenter un algorithme de génération de signatures peu efficace, d'où l'appellation naïve  : ``SignatureNaive.py``. Il repose sur le parcours en profondeur des arêtes du graphe, en prenant successivement l'arête la plus à droite de l'arête que l'on traite par convention. Ce parcours est effectué autant de fois qu'il y a d'arêtes non orientées (elles correspondent à l'arête initiale du parcours). On renomme ensuite les sommets pour ces parcours. La signature correspond au parcours le plus petit (en taille et dans l'ordre alphabétique). 
+
+**Signature Tarjan**
+
+Cette version de l'algorithme de signature correspond à celle imaginée par Tarjan, reposant sur le partitionnement des arêtes selon certains critères.
+Cette version de l'algorithme de signature correspond à celle imaginée par Tarjan, reposant sur le partitionnement des arêtes selon certains critères : `` SignatureVlogV.py`` et ``DefineLambda.py``. Nous nous sommes appuyées sur son article de recherche «J.E. Hopcroft and R.E. Tarjan. A V log V algorithm for isomorphism of triconnected planar graphs».
+
+
 
 **Complexité**
 
  ``complexite.py`` permet de générer les graphiques dont nous venons de parler dans la section précédente. Pour l'algorithme de partitionnement de Tarjan, la complexité attendue est en $V\log(V)$, où $V$ est le nombre de sommets du graphe. Pour l'algorithme naïf, la complexité attendue est en $A^3$, où $A$ est le nombre d'arêtes du graphe.
 
+**Isomorphisme**
+
+Pour savoir si deux graphes sont isomorphes, nous comparons leur signature issue d'un de nos algorithme : ``Isomorphisme.py``.
+
+**Interface Graphique**
+
+><span style="color:orange">⚠️ Warning</span>
+>
+> L'interface graphique n'est pas encore utilisable !
 
 
 
