@@ -57,7 +57,7 @@ Cette version de l'algorithme de signature correspond à celle imaginée par Tar
 
 **Complexité**
 
- ``complexite.py`` permet de générer les graphiques dont nous venons de parler dans la section précédente. Pour l'algorithme de partitionnement de Tarjan, la complexité attendue est en $V\log(V)$, où $V$ est le nombre de sommets du graphe. Pour l'algorithme naïf, la complexité attendue est en $A^3$, où $A$ est le nombre d'arêtes du graphe.
+ ``complexite.py`` permet de générer les graphiques dont nous venons de parler dans la section précédente. Pour l'algorithme de partitionnement de Tarjan, la complexité attendue est en $V\log(V)$, où $V$ est le nombre de sommets du graphe. Pour l'algorithme naïf, la complexité attendue est en $A^2$, où $A$ est le nombre d'arêtes du graphe.
 
 **Isomorphisme**
 
