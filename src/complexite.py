@@ -6,6 +6,7 @@ from Utils import *
 import matplotlib.pyplot as plt
 import pandas as pd
 import statistics
+import math
 import time
 import os 
 
@@ -106,6 +107,7 @@ def saveDataComplexite(version):
 ###########################################
 
 def nbr_aretes(graph) :
+    """ Fonction qui retourne le nombre d'arêtes arrondi à la dizaine supérieure"""
     taille = (len(graph))
     edges = []
     for vertex in range(taille):
@@ -115,7 +117,7 @@ def nbr_aretes(graph) :
             if (neighbor, vertex+1) not in edges:
                 edges.append((vertex+1, neighbor))
     
-    return len(edges)
+    return math.ceil(len(edges)/10)*10
 
 def TempsSignature2():
     """
@@ -145,9 +147,9 @@ def TempsSignature2():
        res[key] = statistics.mean(res[key])
     
     #ecart_type = statistics.stdev(measures)
-
-    return {key:res[key] for key in sorted(res)}
-
+    data = {key:res[key] for key in sorted(res)}
+    print(data)
+    return data
 
 def AffichageGraphique2():
     """
