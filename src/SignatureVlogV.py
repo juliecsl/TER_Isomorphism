@@ -204,15 +204,15 @@ def SignaturePartitionnement(graph: list) -> dict:
     
 ### COMMANDES TESTS ###
 
-filename1 = "FichierTests/ex6_1.txt"
-graph1 = ReadGraph(filename1)
-print(FirstPartitioning(graph1))
-print("")
-# # before_memory = sys.getallocatedblocks()
-s1 = SignaturePartitionnement(graph1)
-print(s1)
+# filename1 = "FichierTests/ex6_1.txt"
+# graph1 = ReadGraph(filename1)
+# print(FirstPartitioning(graph1))
+# print("")
+# # # before_memory = sys.getallocatedblocks()
+# s1 = SignaturePartitionnement(graph1)
+# print(s1)
 
-Draw(graph1)
+# Draw(graph1)
 
 # filename2 = "FichierTests/ex220_1.txt"
 # graph2 = ReadGraph(filename2)
