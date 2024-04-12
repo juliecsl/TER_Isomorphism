@@ -2,17 +2,11 @@ from Utils import *
 import pstats
 import cProfile
 
-# Méthode de test d'isomorphismes entre deux graphes de manière "naive" avec parcours des aretes
-# L'algorithme est le suivant : 
-# - calcul de la signature pour le graphe 1
-# - calcul de la signature pour le graphe 2
-# - comparaison des deux signatures : s'il y a égalité, on a des graphes qui sont isomorphes
-
-
 def ParcoursProfondeurRecursifSurAretes(graph, edge, visited):
     """
     Fonction récursive qui permet de parcourir en profondeur les arêtes non encore vues d'un graphe. A chaque appel, on met à jour
     l'ensemble des arêtes déjà traitées
+    
     Entrée : le graphe sous forme de liste, l'arête que l'on traite, l'ensemble des arêtes déjà traitées dans l'ordre
     Sortie : rien - on met à jour la liste des arêtes visitées 
     """
@@ -129,8 +123,7 @@ def SignatureParcours(graph):
 
     return min(signatures_longueur_min)
 
-# graph1 = ReadGraph("FichierTests\ex100_1.txt")
-# SignatureParcours(graph1)
+# graph1 = ReadGraph("FichierTests/ex50_1.txt")
 # cProfile.run("SignatureParcours(graph1)", "my_func_stats")
 # p = pstats.Stats("my_func_stats")
 # p.sort_stats("cumulative").print_stats()

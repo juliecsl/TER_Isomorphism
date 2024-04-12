@@ -27,3 +27,14 @@ def IsomorphismePartitionnement(graph1, graph2):
         return True
     else :
         return False
+    
+
+def IsomorphismeNauty(graph1, graph2):
+    """
+    Fonction qui détermine si deux graphes sont isomorphes en comparant leur signature obtenue par la version Nauty
+
+    Entrée : deux graphes sous forme de liste
+    Sortie : True s'ils sont isomorphes, False sinon
+    """
+
+    pass

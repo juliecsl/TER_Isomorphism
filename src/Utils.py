@@ -83,7 +83,7 @@ def GeneratePlanarCode(filename):
     # cas où on en a moins de 10
     if nbr_graphs <= 10 :
         for i in range(nbr_graphs):
-            filename = "FichierTests\ex" + str(taille) + '_' + str(i+1) + '.txt'
+            filename = "FichierTests/ex" + str(taille) + '_' + str(i+1) + '.txt'
             WriteGraphInFile(graphs_int[i], filename)
     # cas où on en a plus de 10
     else:
@@ -94,7 +94,7 @@ def GeneratePlanarCode(filename):
             val = random.randint(0, (nbr_graphs-1))
             if val not in hasard:
                 hasard.append(val)
-                filename = "FichierTests\ex" + str(taille) + '_' + str(compteur) + '.txt'
+                filename = "FichierTests/ex" + str(taille) + '_' + str(compteur) + '.txt'
                 WriteGraphInFile(graphs_int[val], filename)
                 compteur += 1
             
@@ -295,4 +295,4 @@ def create_isomorphism(filename: str, pos: list = [[1, 3]]) -> list:
 
 ### EXECUTION DE COMMANDES ###
 
-#GeneratePlanarCode('FichierTests\graph.20')
+#GeneratePlanarCode('FichierTests/graph.20')
