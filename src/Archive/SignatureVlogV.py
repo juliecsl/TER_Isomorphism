@@ -208,11 +208,24 @@ def est_iso(graph1: list, graph2: list) -> bool:
     
 ### COMMANDES TESTS ###
 
-filename1 = "FichierTests/ex5_1.txt"
+
+filename1 = "FichierTests/graph5_1.txt"
 graph1 = ReadGraph(filename1)
-# before_memory = sys.getallocatedblocks()
+print(FirstPartitioning(graph1))
+print("")
+# # before_memory = sys.getallocatedblocks()
 s1 = SignaturePartitionnement(graph1)
 print(s1)
+
+Draw(graph1)
+
+
+
+# filename1 = "FichierTests/ex5_1.txt"
+# graph1 = ReadGraph(filename1)
+# # before_memory = sys.getallocatedblocks()
+# s1 = SignaturePartitionnement(graph1)
+# print(s1)
 # diff_memory = sys.getallocatedblocks() - before_memory
 # print(f'{diff_memory} blocs supplémentaires alloués')
 # print("Taille signature:", sys.getsizeof(s1), "octets.")
