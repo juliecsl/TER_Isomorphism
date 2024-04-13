@@ -10,10 +10,7 @@ def IsomorphismeNaif(graph1, graph2):
     """
     from SignatureNaive import SignatureParcours
 
-    if SignatureParcours(graph1) == SignatureParcours(graph2):
-        return True
-    else :
-        return False
+    return SignatureParcours(graph1) == SignatureParcours(graph2)
 
 
 def IsomorphismePartitionnement(graph1, graph2):
@@ -25,10 +22,8 @@ def IsomorphismePartitionnement(graph1, graph2):
     """
     from SignatureVlogV import SignaturePartitionnement
 
-    if SignaturePartitionnement(graph1) == SignaturePartitionnement(graph2):
-        return True
-    else :
-        return False
+    return SignaturePartitionnement(graph1) == SignaturePartitionnement(graph2)
+
     
 
 def IsomorphismeNauty(filename1, filename2):

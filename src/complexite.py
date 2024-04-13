@@ -27,7 +27,7 @@ def TempsSignature(version):
     """
     Fonction qui retourne dans un dictionnaire le temps moyen de calcul de la signature en fonction du nombre de sommets
     """
-    from Isomorphisme import IsomorphismePartitionnement
+    from Isomorphisme import IsomorphismePartitionnement, IsomorphismeNaif
 
     fichiers = Repertoire("FichierTests")
     
@@ -58,6 +58,14 @@ def TempsSignature(version):
                     graph2 = ReadGraph(filename2)
                     start = time.time()
                     IsomorphismePartitionnement(graph, graph2)
+                    end = time.time()
+
+                elif version == "naiveISO":
+                    # on calcule le temps que met l'algo vlogv pour faire une signature
+                    filename2 = fichier[:len(fichier)-4] + "ISO.txt"
+                    graph2 = ReadGraph(filename2)
+                    start = time.time()
+                    IsomorphismeNaif(graph, graph2)
                     end = time.time()
 
                 measures = (end - start)
