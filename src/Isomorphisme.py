@@ -1,5 +1,6 @@
 from SignatureNaive import SignatureParcours
 from SignatureVlogV import SignaturePartitionnement
+from IsomorphismeNauty import IsoNauty
 
 def IsomorphismeNaif(graph1, graph2):
     """
@@ -29,12 +30,12 @@ def IsomorphismePartitionnement(graph1, graph2):
         return False
     
 
-def IsomorphismeNauty(graph1, graph2):
+def IsomorphismeNauty(filename1, filename2):
     """
     Fonction qui détermine si deux graphes sont isomorphes en comparant leur signature obtenue par la version Nauty
 
-    Entrée : deux graphes sous forme de liste
+    Entrée : deux fichiers.txt
     Sortie : True s'ils sont isomorphes, False sinon
     """
 
-    pass
+    return IsoNauty(filename1, filename2)
