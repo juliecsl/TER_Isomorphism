@@ -1,16 +1,39 @@
 # TER - signatures et isomorphismes
+*Réalisé par Julie CIESLA et Pauline HOSTI*
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-Dans le cadre de notre TER, nous avons choisi un sujet d'algorithmique. Le but de notre projet est de comparer plusieurs méthodes de génération de signatures pour des graphes planaires (3-connexes). Nous avons implémenté l’algorithme classique de raffinement de
-partitions de Tarjan ainsi qu'un algorithme «naïf». Nous souhaitons obtenir les implémentations les plus rapides possibles de ces deux algorithmes afin de comparer leurs performances entre elles d'une part, mais également avec des méthodes plus générales comme celle de «nauty and traces».
+Dans le cadre de notre Travail d'Étude et de Recherche (TER), nous avons choisi un sujet d'algorithmique. Notre objectif principal est de comparer diverses méthodes de calcul d'isomorphisme de graphes planaires en utilisant la génération de signatures. Pour cela, nous avons mis en œuvre deux approches principales : l'algorithme classique de raffinement de partitions de Tarjan et une méthode plus simple que nous qualifions de « naïve ». 
 
-## Utilisation
+Notre but étant d'obtenir les performances les plus élevées possibles et de comparer ces deux approches entre elles d'une part, mais également avec des méthodes plus générales comme celles de "nauty" et "traces".
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+## 📑 Manuel utilisateur
 
 Nous aimerions pouvoir lancer toutes nos commandes depuis une interface graphique. Pour ce faire il suffira d'exécuter la commande suivante : 
 ```
 python src/main.py
 ```
 
-## Organisation
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+## 🛠️ Manuel technique
+
+### Prérequis 
+ - **Système Unix** du fait de l'utilisation de la librairie pynauty.
+ - **Python**: 3.11
+
+### Librairies
+ - **pynauty**: 2.8.6
+ - **pandas**: 2.2.2
+ - **networkx**
+ - **matplotlib**: 3.8.4
+
+ Pour installer une librairie faire
+ ```
+pip install <nom librairie>
+```
+
+
+### Organisation
 
 Notre avons organisé notre travail en trois répertoires : 
 - FichierTests
@@ -70,6 +93,27 @@ Pour savoir si deux graphes sont isomorphes, nous comparons leur signature issue
 ><span style="color:orange">⚠️ Warning</span>
 >
 > L'interface graphique n'est pas encore utilisable !
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+## 📂 Contenu du projet
+
+```
+.
+├── 1-FichierTests
+│   ├── ex5_1.txt
+│   ├── ...
+│   └── graph30_2ISO.txt
+├── 2-Graphique
+│   ├── A COMPLETER
+│   ├── ...
+│   └── ...
+├── 3-src
+│   ├── A COMPLETER
+│   ├── ...
+│   └── ...
+├── .gitignore
+└── README.md
+```
 
 
 
