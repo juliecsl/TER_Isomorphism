@@ -10,7 +10,7 @@ import time
 import os 
 
     
-def Repertoire(repert):
+def Repertoire(repert: str) -> list:
     """ Fonction qui met tous les fichiers d'un répertoire dans une liste """
 
     fichiers =  os.listdir(os.path.abspath(repert))
@@ -23,9 +23,10 @@ def Repertoire(repert):
 
 #### COMPLEXITE ####
 
-def TempsSignature(version):
+def TempsSignature(version: str) -> list:
     """
-    Fonction qui retourne dans un dictionnaire le temps moyen de calcul de la signature en fonction du nombre de sommets
+    Fonction qui retourne dans un dictionnaire le temps moyen de calcul 
+    de la signature en fonction du nombre de sommets
     """
     from Isomorphisme import IsomorphismePartitionnement, IsomorphismeNaif
 
@@ -83,9 +84,10 @@ def TempsSignature(version):
     return {key:res[key] for key in sorted(res)}
 
 
-def AffichageGraphique(version: str, nameSavingFile : str = "filename.png"):
+def AffichageGraphique(version: str, nameSavingFile : str = "filename.png") -> None:
     """
-    Fonction qui permet d'afficher le temps de calcul signature algo naif en fontion du nombre de sommets
+    Fonction qui permet d'afficher le temps de calcul signature 
+    algo naif en fontion du nombre de sommets
     """
     
     data = TempsSignature(version).items()
@@ -108,7 +110,7 @@ def AffichageGraphique(version: str, nameSavingFile : str = "filename.png"):
     plt.savefig(nameSavingFile)
 
 
-def saveDataComplexite(version):
+def saveDataComplexite(version: str) -> None:
 
     # génère la moyenne de temps des graphes
     data = TempsSignature(version).items()
@@ -126,7 +128,7 @@ def saveDataComplexite(version):
 
 ###########################################
 
-def nbr_aretes(graph) :
+def nbr_aretes(graph: list) -> float:
     """ Fonction qui retourne le nombre d'arêtes arrondi à la dizaine supérieure"""
     taille = (len(graph))
     edges = []
@@ -139,7 +141,7 @@ def nbr_aretes(graph) :
     
     return math.ceil(len(edges)/10)*10
 
-def TempsSignature2():
+def TempsSignature2() -> dict:
     """
     Fonction qui retourne dans un dictionnaire le temps moyen de calcul de la signature en fonction du nombre de sommets
     """
@@ -168,10 +170,9 @@ def TempsSignature2():
     
     #ecart_type = statistics.stdev(measures)
     data = {key:res[key] for key in sorted(res)}
-    print(data)
     return data
 
-def AffichageGraphique2():
+def AffichageGraphique2() -> None:
     """
     Fonction qui permet d'afficher le temps de calcul signature algo naif en fontion du nombre de sommets
     """

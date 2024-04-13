@@ -9,7 +9,7 @@ import random
 ### ECRITURE/LECTURE DE GRAPHES ###
 
 
-def WriteGraphInFile(graph, filename):
+def WriteGraphInFile(graph: list, filename: str) -> None:
     """
     Fonction qui permet à partir d'un graphe, de créer un fichier pour le stocker comme ceux lu depuis plantri web.
 
@@ -29,17 +29,17 @@ def WriteGraphInFile(graph, filename):
             file.write(string)
 
 
-def GeneratePlanarCode(filename):
+def GeneratePlanarCode(filename: str) -> None:
     """ 
     Fonction qui permet de séparer des graphes issus d'un fichier binaire générés via le programme Plantri
     dans des fichiers différents
 
     Entrée: Fichier binaire
-    Sortie: Fichier texte (.txt) incluant la représentation Plantri d'un graphe ou web
+    Résultat: Fichier texte (.txt) incluant la représentation Plantri d'un graphe ou web
 
     Exemple:
         Entrée: un fichier binaire
-        Sortie: de nouveaux fichiers, 1 par graphe, format plantri web
+        Resultat: de nouveaux fichiers, 1 par graphe, format plantri web
     """
     ### LECTURE DU FICHIER ###
     with open(filename, "rb") as filin:
@@ -126,7 +126,7 @@ def ListBinaryToInt(content):
     return res
 
 
-def ReadGraphFromWeb(content):
+def ReadGraphFromWeb(content) -> list:
     """ 
     Fonction qui permet de mettre un graphe issu d'un fichier texte généré via le programme Plantri version web
     dans une liste où chaque élément de la liste correspond aux arêtes du noeuds dont c'est l'indice. 
@@ -159,7 +159,7 @@ def ReadGraphFromWeb(content):
 # on ne peut générer des fichiers de la version programme plantri que sur des machines UNIX
 # ./plantri 5 -a test.txt (un graphe planaire à 5 sommets)
 
-def ReadGraphFromPlantriAscii(content):
+def ReadGraphFromPlantriAscii(content) -> list:
     """ 
     Fonction qui permet de mettre un graphe issu d'un fichier texte généré via le programme Plantri
     dans une liste où chaque élément de la liste correspond aux arêtes du noeuds dont c'est l'indice. 
@@ -189,7 +189,7 @@ def ReadGraphFromPlantriAscii(content):
     return graph
 
 
-def ReadGraph(filename):
+def ReadGraph(filename: str) -> list:
     """ 
     Fonction qui permet de mettre un graphe issu d'un fichier texte généré via le programme Plantri
     dans une liste où chaque élément de la liste correspond aux arêtes du noeuds dont c'est l'indice. 
@@ -215,7 +215,7 @@ def ReadGraph(filename):
 ### DESSIN DE GRAPHE ###
 
 
-def Draw(graphe):
+def Draw(graphe: list) -> None:
     """
     Fonction qui permet d'afficher le graphe sous forme planaire dans une nouvelle fenêtre.
 

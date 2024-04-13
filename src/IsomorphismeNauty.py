@@ -9,7 +9,7 @@ import statistics
 # Script uniquement utilisible sous Unix et MacOS.
 # Du fait de l'utilisation de la librairie pynauty.
 
-def nautyGraph(filename):
+def nautyGraph(filename: str) -> list:
     """
     Fonction qui prend en entrée un fichier de la forme s1[s2 s4] s2[s1] s3 [s4 s1] ...
     Et le tranforme en fichier lisible par le programme nauty.
@@ -17,7 +17,6 @@ def nautyGraph(filename):
     # important par convention les sommets sont numérotés à partir de 0
     return [[i-1 for i in ReadGraph(filename)[j] ]for j in range(len(ReadGraph(filename)))]
 
-# g2 = [[i-1 for i in ReadGraph("FichierTests/ex5_1.txt")[j] ]for j in range(len(ReadGraph("FichierTests/ex5_2.txt")))]
 
 def IsoNauty(filename1: str, filename2: str) -> bool:
     """
@@ -55,8 +54,11 @@ def IsoNauty(filename1: str, filename2: str) -> bool:
 
 # J'ai pas mis cette fonction dans complexité pour éviter de 
 # devoir 'y importer la librairie pynauty
-def tempsIsomorphismeNauty():
-    """Pas fini"""
+def tempsIsomorphismeNauty() -> dict:
+    """
+    Fonction qui retourne dans un dictionnaire le temps moyen de calcul 
+    de l'isomorphisme de nauty en fonction du nombre de sommets
+    """
     fichiers = Repertoire("FichierTests")
     res = {}
 
@@ -87,7 +89,7 @@ def tempsIsomorphismeNauty():
 
 def AffichageGraphiqueNauty():
     """
-    Fonction qui permet d'afficher le temps de calcul signature algo naif en fontion du nombre de sommets
+    Fonction qui permet d'afficher le temps de calcul del'algo nauty en fontion du nombre de sommets
     """
     
     data = tempsIsomorphismeNauty().items()

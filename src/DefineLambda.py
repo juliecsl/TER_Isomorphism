@@ -6,7 +6,7 @@ from Utils import *
 # print(graph)
  
 
-def VertexDegrees(vertex, graph):
+def VertexDegrees(vertex: int, graph: list) -> int:
     """ 
     Fonction qui renvoie le degré d'un sommet.
     Entrée: Sommet (int)
@@ -15,7 +15,7 @@ def VertexDegrees(vertex, graph):
     return len(graph[vertex-1])
 
 
-def RightFaceCardinality(edge, graph):
+def RightFaceCardinality(edge: tuple, graph: list) -> int:
     """ 
     Fonction qui donne le nombre arêtes sur la face immédiatement à droite d'un arc. 
     (i.e. donne la taille de la face) 
@@ -39,7 +39,7 @@ def RightFaceCardinality(edge, graph):
 # print(RightFaceCardinality((1,2)))
 
 
-def LeftFaceCardinality(edge, graph):
+def LeftFaceCardinality(edge: tuple, graph: list) -> int:
     """ 
     Fonction qui donne le nombre arêtes sur la face immédiatement à gauche d'un arc. 
     (i.e. donne la taille de la face) 
@@ -62,9 +62,8 @@ def LeftFaceCardinality(edge, graph):
 
 # print(LeftFaceCardinality((1,2)))
 
-def Lambda(edge, graph):
+def Lambda(edge: tuple, graph: list) -> tuple:
     """
-    
     Fonction qui renvoie un tuple unique de la forme (face gauche, face droite, degré tail, degré head)
     
     Entrée: Arc sous forme de tuple (queue, tete)
@@ -77,7 +76,7 @@ def Lambda(edge, graph):
     return lambda_res
 
 
-def SameLambda(edge1, edge2, graph):
+def SameLambda(edge1: tuple, edge2: tuple, graph: list) -> bool:
     """
     
     Fonction qui renvoie True si les arêtes sont indiscernables et False sinon
