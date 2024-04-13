@@ -113,7 +113,7 @@ def saveDataComplexite(version):
     print("Fichier de données sauvegardé.")
 
 # saveDataComplexite("vlogv")
-AffichageGraphique("vlogvISO")
+# AffichageGraphique("vlogvISO")
 # AffichageGraphique("naive")
 
 ###########################################
