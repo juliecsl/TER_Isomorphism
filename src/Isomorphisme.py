@@ -1,6 +1,5 @@
-from SignatureNaive import SignatureParcours
-from SignatureVlogV import SignaturePartitionnement
-from IsomorphismeNauty import IsoNauty
+
+# Import à l'interieur des fonctions pour éviter des problemes d'import circulaire
 
 def IsomorphismeNaif(graph1, graph2):
     """
@@ -9,6 +8,7 @@ def IsomorphismeNaif(graph1, graph2):
     Entrée : deux graphes sous forme de liste
     Sortie : True s'ils sont isomorphes, False sinon
     """
+    from SignatureNaive import SignatureParcours
 
     if SignatureParcours(graph1) == SignatureParcours(graph2):
         return True
@@ -23,6 +23,7 @@ def IsomorphismePartitionnement(graph1, graph2):
     Entrée : deux graphes sous forme de liste
     Sortie : True s'ils sont isomorphes, False sinon
     """
+    from SignatureVlogV import SignaturePartitionnement
 
     if SignaturePartitionnement(graph1) == SignaturePartitionnement(graph2):
         return True
@@ -37,5 +38,6 @@ def IsomorphismeNauty(filename1, filename2):
     Entrée : deux fichiers.txt
     Sortie : True s'ils sont isomorphes, False sinon
     """
+    from IsomorphismeNauty import IsoNauty
 
     return IsoNauty(filename1, filename2)

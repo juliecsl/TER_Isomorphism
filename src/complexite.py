@@ -1,7 +1,6 @@
+from Utils import *
 from SignatureNaive import SignatureParcours
 from SignatureVlogV import SignaturePartitionnement
-from Utils import *
-
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -28,45 +27,55 @@ def TempsSignature(version):
     """
     Fonction qui retourne dans un dictionnaire le temps moyen de calcul de la signature en fonction du nombre de sommets
     """
+    from Isomorphisme import IsomorphismePartitionnement
 
     fichiers = Repertoire("FichierTests")
     
     # pour chaque fichier, on note le nombre de sommets avec le temps d'éxécution associé
     res = {}
     for fichier in fichiers:
-        graph = ReadGraph(fichier)
-        measures = []
-        taille = len(graph)
-        if taille <= 220 :
+        if "ISO" not in fichier:
+            graph = ReadGraph(fichier)
+            measures = []
+            taille = len(graph)
+            if taille <= 220 :
 
-            if version == "vlogv" :
-                # on calcule le temps que met l'algo vlogv pour faire une signature
-                start = time.time()
-                SignaturePartitionnement(graph)
-                end = time.time()
+                if version == "vlogv" :
+                    # on calcule le temps que met l'algo vlogv pour faire une signature
+                    start = time.time()
+                    SignaturePartitionnement(graph)
+                    end = time.time()
 
-            elif version == "naive":
-                # on calcule le temps que met l'algo naif pour faire une signature
-                start = time.time()
-                SignatureParcours(graph)
-                end = time.time()
+                elif version == "naive":
+                    # on calcule le temps que met l'algo naif pour faire une signature
+                    start = time.time()
+                    SignatureParcours(graph)
+                    end = time.time()
+                
+                elif version == "vlogvISO":
+                    # on calcule le temps que met l'algo vlogv pour faire une signature
+                    filename2 = fichier[:len(fichier)-4] + "ISO.txt"
+                    graph2 = ReadGraph(filename2)
+                    start = time.time()
+                    IsomorphismePartitionnement(graph, graph2)
+                    end = time.time()
 
-            measures = (end - start)
-            if taille in res:
-                res[taille].append(measures)
-            else:
-                res[taille] = [measures]
-    
+                measures = (end - start)
+                if taille in res:
+                    res[taille].append(measures)
+                else:
+                    res[taille] = [measures]
+        
     #on calcule maintenant les moyennes
     for key in res:
-       res[key] = statistics.mean(res[key])
-    
+        res[key] = statistics.mean(res[key])
+        
     #ecart_type = statistics.stdev(measures)
 
     return {key:res[key] for key in sorted(res)}
 
 
-def AffichageGraphique(version):
+def AffichageGraphique(version: str, nameSavingFile : str = "filename.png"):
     """
     Fonction qui permet d'afficher le temps de calcul signature algo naif en fontion du nombre de sommets
     """
@@ -84,8 +93,11 @@ def AffichageGraphique(version):
         plt.title("Algorithme VlogV")
     elif version == "naive":
         plt.title("Algorithme naif")
+    elif version == "vlogvISO":
+        plt.title("Algorithme d'isomorphisme en VlogV")
 
-    plt.show()
+    # plt.show()
+    plt.savefig(nameSavingFile)
 
 
 def saveDataComplexite(version):
@@ -101,7 +113,7 @@ def saveDataComplexite(version):
     print("Fichier de données sauvegardé.")
 
 # saveDataComplexite("vlogv")
-# AffichageGraphique("vlogv")
+AffichageGraphique("vlogvISO")
 # AffichageGraphique("naive")
 
 ###########################################
@@ -165,4 +177,3 @@ def AffichageGraphique2():
 
     plt.show()
 
-AffichageGraphique2()
