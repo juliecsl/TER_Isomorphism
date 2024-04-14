@@ -76,15 +76,17 @@ Nous avons commencé par implémenter un algorithme de génération de signature
 Cette version de l'algorithme de signature correspond à celle imaginée par Tarjan, reposant sur le partitionnement des arêtes selon certains critères.
 Cette version de l'algorithme de signature correspond à celle imaginée par Tarjan, reposant sur le partitionnement des arêtes selon certains critères : `` SignatureVlogV.py`` et ``DefineLambda.py``. Nous nous sommes appuyées sur son article de recherche «J.E. Hopcroft and R.E. Tarjan. A V log V algorithm for isomorphism of triconnected planar graphs».
 
+**Nauty**
 
-
-**Complexité**
-
- ``complexite.py`` permet de générer les graphiques dont nous venons de parler dans la section précédente. Pour l'algorithme de partitionnement de Tarjan, la complexité attendue est en $V\log(V)$, où $V$ est le nombre de sommets du graphe. Pour l'algorithme naïf, la complexité attendue est en $A^2$, où $A$ est le nombre d'arêtes du graphe.
+Nous avons réalisé un fichier à part, ``Nauty.py``, pour gérer la bibliothèque ``pynauty`` accessible seulement sur une machine Unix. Ce fichier contient les méthodes nous permettant d'effectuer le calcul de signature découvert par Brendan D.McKay sur nos exemples. 
 
 **Isomorphisme**
 
 Pour savoir si deux graphes sont isomorphes, nous comparons leur signature issue d'un de nos algorithme : ``Isomorphisme.py``.
+
+**Complexité**
+
+ ``complexite.py`` permet de générer les graphiques dont nous venons de parler dans la section précédente. Pour l'algorithme de partitionnement de Tarjan, la complexité attendue est en $V\log(V)$, où $V$ est le nombre de sommets du graphe. Pour l'algorithme naïf, la complexité attendue est en $A^2$, où $A$ est le nombre d'arêtes du graphe.
 
 **Interface Graphique**
 

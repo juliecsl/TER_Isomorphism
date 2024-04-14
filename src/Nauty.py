@@ -1,7 +1,6 @@
 from pynauty import *
 from Utils import ReadGraph
 from complexite import Repertoire
-import os
 import time
 import matplotlib.pyplot as plt
 import statistics

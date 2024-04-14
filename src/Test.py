@@ -76,6 +76,31 @@ class TestVersionVlogV(unittest.TestCase):
     
         self.assertEqual(IsomorphismePartitionnement(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
 
+class TestVersionWeinberg(unittest.TestCase):
+    
+    def setUp(self):
+
+        filename1 = "FichierTests/ex50_1.txt"
+        self.graph1 = ReadGraph(filename1)
+
+        filename1bis = "FichierTests/ex50_8.txt"
+        self.graph1bis = ReadGraph(filename1bis)
+
+        create_isomorphism(filename1)
+        filename1ter = "FichierTests/ex50_1ISO.txt"
+        self.graph1ter = ReadGraph(filename1ter)
+
+
+    def test1_isomorphisme(self):
+        
+        self.assertEqual(IsomorphismeWeinberg(self.graph1, self.graph1ter), True,
+                         'graphes isomorphes')
+        
+    def test2_isomorphisme(self):
+    
+        self.assertEqual(IsomorphismeWeinberg(self.graph1, self.graph1bis), False, 'graphes non isomorphes')
+
+
 
 if __name__ == '__main__':
     unittest.main()
