@@ -69,7 +69,11 @@ Le fichier ``Utils.py`` comprend les méthodes permettant de lire les fichiers d
 
 **Signature Naïve**
 
-Nous avons commencé par implémenter un algorithme de génération de signatures peu efficace, d'où l'appellation naïve  : ``SignatureNaive.py``. Il repose sur le parcours en profondeur des arêtes du graphe, en prenant successivement l'arête la plus à droite de l'arête que l'on traite par convention. Ce parcours est effectué autant de fois qu'il y a d'arêtes non orientées (elles correspondent à l'arête initiale du parcours). On renomme ensuite les sommets pour ces parcours. La signature correspond au parcours le plus petit (en taille et dans l'ordre alphabétique). 
+Nous avons commencé par implémenter un algorithme de génération de signatures peu efficace, d'où l'appellation naïve  : ``SignatureNaive.py``. Il repose sur le parcours en profondeur des arêtes du graphe, en prenant successivement l'arête la plus à droite de l'arête que l'on traite par convention. Ce parcours est effectué autant de fois qu'il y a d'arêtes orientées (elles correspondent à l'arête initiale du parcours). On renomme ensuite les sommets pour ces parcours. La signature correspond au parcours le plus petit (en taille et dans l'ordre alphabétique). 
+
+**Signature Weinberg**
+
+Il s'agit de l'algorithme de signature imaginée par Weinberg. Il repose sur les parcours eulérien du graphe. Ce parcours est effectué autant de fois qu'il y a d'arêtes orientées (elles correspondent à l'arête initiale du parcours). On renomme ensuite les sommets pour ces parcours. La signature correspond au parcours le plus petit (en taille et dans l'ordre alphabétique). 
 
 **Signature Tarjan**
 
@@ -78,7 +82,7 @@ Cette version de l'algorithme de signature correspond à celle imaginée par Tar
 
 **Nauty**
 
-Nous avons réalisé un fichier à part, ``Nauty.py``, pour gérer la bibliothèque ``pynauty`` accessible seulement sur une machine Unix. Ce fichier contient les méthodes nous permettant d'effectuer le calcul de signature découvert par Brendan D.McKay sur nos exemples. 
+Nous avons réalisé un fichier à part, ``Nauty.py``, pour gérer la bibliothèque ``pynauty`` accessible seulement depuis une machine Unix. Ce fichier contient les méthodes nous permettant d'effectuer le calcul de signature découvert par Brendan D.McKay sur nos exemples. 
 
 **Isomorphisme**
 
@@ -86,7 +90,7 @@ Pour savoir si deux graphes sont isomorphes, nous comparons leur signature issue
 
 **Complexité**
 
- ``complexite.py`` permet de générer les graphiques dont nous venons de parler dans la section précédente. Pour l'algorithme de partitionnement de Tarjan, la complexité attendue est en $V\log(V)$, où $V$ est le nombre de sommets du graphe. Pour l'algorithme naïf, la complexité attendue est en $A^2$, où $A$ est le nombre d'arêtes du graphe.
+ ``complexite.py`` permet de générer les graphiques dont nous venons de parler dans la section précédente. Pour l'algorithme de partitionnement de Tarjan, la complexité attendue est en $V\log(V)$, où $V$ est le nombre de sommets du graphe. Pour l'algorithme naïf, la complexité attendue est en $V^2$, où $V$ est le nombre d'arêtes du graphe.
 
 **Interface Graphique**
 
@@ -106,12 +110,12 @@ Pour savoir si deux graphes sont isomorphes, nous comparons leur signature issue
 │   ├── ...
 │   └── graph30_2ISO.txt
 ├── 2-Graphique
-│   ├── A COMPLETER
+│   ├── ToutISO.png
 │   ├── ...
 │   └── ...
 ├── 3-src
-│   ├── A COMPLETER
-│   ├── ...
+│   ├── SignatureNaive.py
+│   ├── SignatureVlogV.py
 │   └── ...
 ├── .gitignore
 └── README.md
