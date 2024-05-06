@@ -131,7 +131,7 @@ def SignatureParcours(graph):
     return min(signatures_longueur_min)
 
 
-graph1 = ReadGraph("FichierTests/ex200_1.txt")
-cProfile.run("SignatureParcours(graph1)", "my_func_stats")
-p = pstats.Stats("my_func_stats")
-p.sort_stats("cumulative").print_stats()
+# graph1 = ReadGraph("FichierTests/ex200_1.txt")
+# cProfile.run("SignatureParcours(graph1)", "my_func_stats")
+# p = pstats.Stats("my_func_stats")
+# p.sort_stats("cumulative").print_stats()
