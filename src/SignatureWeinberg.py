@@ -1,6 +1,8 @@
 from Utils import *
 import pstats
 import cProfile
+import sys
+sys.setrecursionlimit(10000)  # Définit la limite de récursion à 10000
 
 def ParcoursProfondeurRecursifSurAretes(graph, edge, visited_edges, visited_vertex):
     """
@@ -12,7 +14,7 @@ def ParcoursProfondeurRecursifSurAretes(graph, edge, visited_edges, visited_vert
     """
 
     #on ajoute l'arête à la liste des arêtes visitées
-    visited_edges.append(edge)
+    visited_edges.add(edge)
     visited_vertex.append(edge[0])
 
     # on regarde les voisins et on les prends dans l'ordre à droite de celle d'où l'on vient
@@ -49,7 +51,7 @@ def ParcoursAretes(graph, edge_debut):
     """
     
     # ensemble des arêtes dans l'ordre dans lesquelles on les a passée, mis à jour avec ParcoursProfondeurRecursif
-    visited_edges = list()
+    visited_edges = set()
     visited_vertex = list()
     # première instance pour le parcours en profondeur 
     ParcoursProfondeurRecursifSurAretes(graph, edge_debut, visited_edges, visited_vertex)
@@ -129,7 +131,7 @@ def SignatureParcours(graph):
     return min(signatures_longueur_min)
 
 
-# graph1 = ReadGraph("FichierTests/ex50_1.txt")
-# cProfile.run("SignatureParcours(graph1)", "my_func_stats")
-# p = pstats.Stats("my_func_stats")
-# p.sort_stats("cumulative").print_stats()
+graph1 = ReadGraph("FichierTests/ex200_1.txt")
+cProfile.run("SignatureParcours(graph1)", "my_func_stats")
+p = pstats.Stats("my_func_stats")
+p.sort_stats("cumulative").print_stats()
