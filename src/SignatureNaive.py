@@ -2,7 +2,7 @@ from Utils import *
 import pstats
 import cProfile
 
-def ParcoursProfondeurRecursifSurAretes(graph, edge, visited):
+def ParcoursProfondeurRecursifSurAretes(graph, edge, visited, chemin):
     """
     Fonction récursive qui permet de parcourir en profondeur les arêtes non encore vues d'un graphe. A chaque appel, on met à jour
     l'ensemble des arêtes déjà traitées
@@ -12,7 +12,11 @@ def ParcoursProfondeurRecursifSurAretes(graph, edge, visited):
     """
 
     #on ajoute l'arête à la liste des arêtes visitées
-    visited.append(edge)
+    visited.add(edge)
+    if chemin[-1] != edge[0]:
+        chemin.append(edge[0])
+    # on ajoute la tête d'arête (nouveau sommet) à la liste
+    chemin.append(edge[1])
 
     # on regarde les voisins et on les prends dans l'ordre à droite de celle d'où l'on vient
     voisins = graph[edge[1]-1]
@@ -22,7 +26,7 @@ def ParcoursProfondeurRecursifSurAretes(graph, edge, visited):
     # regarder pour chaque voisin de la tête de l'arête, edge[1], si l'arête les reliant a été traité et si non la traiter
     for neighbor in regarder:
         if ((neighbor, edge[1]) not in visited) and ((edge[1], neighbor) not in visited):
-            ParcoursProfondeurRecursifSurAretes(graph, (edge[1], neighbor), visited)
+            ParcoursProfondeurRecursifSurAretes(graph, (edge[1], neighbor), visited, chemin)
 
 def ParcoursAretes(graph, edge_debut):
     """
@@ -33,20 +37,14 @@ def ParcoursAretes(graph, edge_debut):
     """
     
     # ensemble des arêtes dans l'ordre dans lesquelles on les a passée, mis à jour avec ParcoursProfondeurRecursif
-    visited = list()
-    # première instance pour le parcours en profondeur 
-    ParcoursProfondeurRecursifSurAretes(graph, edge_debut, visited)
+    visited = set()
+    chemin = [edge_debut[0]]
 
-    # initialisation de la liste avec le nom des sommets dans l'ordre que l'on voit dans le parcours
-    res = [edge_debut[0]]
-    for edge in visited :
-        # dans le cas où on voit une arête qui ne suit pas directement la dernière on ajoute sa queue à la liste
-        if res[-1] != edge[0]:
-            res.append(edge[0])
-        # on ajoute la tête d'arête (nouveau sommet) à la liste
-        res.append(edge[1])
+    # première instance pour le parcours en profondeur 
+    ParcoursProfondeurRecursifSurAretes(graph, edge_debut, visited, chemin)
+    
         
-    return res
+    return chemin
 
 def Traduction(graph, parcours):
     """
@@ -123,7 +121,7 @@ def SignatureParcours(graph):
 
     return min(signatures_longueur_min)
 
-# graph1 = ReadGraph("FichierTests/ex50_1.txt")
+
 # cProfile.run("SignatureParcours(graph1)", "my_func_stats")
 # p = pstats.Stats("my_func_stats")
 # p.sort_stats("cumulative").print_stats()
