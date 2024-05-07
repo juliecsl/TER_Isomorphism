@@ -106,4 +106,26 @@ def AffichageGraphiqueNauty():
     plt.savefig('filename.png')
 
 
-AffichageGraphiqueNauty()
+###################### Courbes Analyses entre les différentes méthodes ############
+
+from complexite import TempsSignature
+
+def Analyse():
+    
+    methode = ["vlogvISO"] #, "naiveISO", "weinbergISO"]
+    for m in methode:
+        data = TempsSignature(m).items()
+        x, y = zip(*data)
+        plt.plot(x, y, label=m)
+    data = tempsIsomorphismeNauty().items()
+    x, y = zip(*data)
+    plt.plot(x, y, label='nautyIso')
+
+    plt.xlabel("Nombre de sommets")
+    plt.ylabel("Temps en seconde moyen pour calcul d'isomorphisme")
+    plt.title("Comparaison du temps d'éxécution des différentes méthodes")
+    plt.legend()
+
+    plt.savefig('Graphiques/Comparaison.png')
+
+Analyse()

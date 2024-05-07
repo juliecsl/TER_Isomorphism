@@ -12,6 +12,7 @@ def IsomorphismeNaif(graph1, graph2):
 
     return SignatureParcours(graph1) == SignatureParcours(graph2)
 
+
 def IsomorphismeWeinberg(graph1, graph2):
     """
     Fonction qui détermine si deux graphes sont isomorphes en comparant leur signature obtenue par la version naive
