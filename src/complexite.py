@@ -6,7 +6,7 @@ from SignatureVlogV import SignaturePartitionnement
 import matplotlib.pyplot as plt
 import pandas as pd
 import statistics
-import math
+from math import log
 import time
 import os 
 
@@ -137,3 +137,60 @@ def saveDataComplexite(version: str) -> None:
     df.to_excel('donnees.xlsx', index=False)
     print("Fichier de données sauvegardé.")
 
+
+####### REGRESSION LINEAIRE ALGO VLOGV #######
+
+def TempsMoyenne():
+
+    fichiers = Repertoire("FichierTests")
+    
+    # pour chaque fichier, on note le nombre de sommets avec le temps d'éxécution associé
+    res = {}
+    for fichier in fichiers:
+        
+        graph = ReadGraph(fichier)
+        measures = []
+        taille = len(graph)
+
+        # on calcule le temps que met l'algo vlogv pour faire une signature
+        start = time.time()
+        SignaturePartitionnement(graph)
+        end = time.time()
+        
+        measures = (end - start)
+        if taille in res:
+            res[taille].append(measures)
+        else:
+            res[taille] = [measures]
+
+    #on calcule maintenant les moyennes
+    for key in res:
+        res[key] = statistics.mean(res[key])
+
+    return {key:res[key] for key in sorted(res)}
+
+def GraphVlogV():
+
+    data = TempsMoyenne().items()
+    x, y1 = zip(*data)
+    x1 = [x*log(x) for x in x]
+    print(x)
+    plt.plot(x1, y1)
+    plt.xlabel("VlogV, V nombre de sommets")
+    plt.ylabel("Temps moyen de calcul pour la signature (en secondes)")
+    
+    plt.title("Algorithme VlogV")
+
+    plt.show()
+
+def DataInFile():
+
+    data = TempsMoyenne().items()
+    x, y1 = zip(*data)
+    x1 = [x*log(x) for x in x]
+
+    with open("data.txt", 'w') as f:
+        for i in range(len(x1)):
+            f.write(str(x1[i]) + " " + str(y1[i]) + "\n")
+
+DataInFile()
