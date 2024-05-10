@@ -187,10 +187,10 @@ def DataInFile():
 
     data = TempsMoyenne().items()
     x, y1 = zip(*data)
-    x1 = [x*log(x) for x in x]
+    x_log_x = [x*log(x) for x in x]
+    x_x = [x*x for x in x]
 
-    with open("data.txt", 'w') as f:
-        for i in range(len(x1)):
-            f.write(str(x1[i]) + " " + str(y1[i]) + "\n")
+    table = pd.DataFrame({'v' :x, 'VlogV': x_log_x, 'V*V' : x_x, 't' : y1})
+    table.to_excel('data.xlsx', index=False)
 
 DataInFile()
